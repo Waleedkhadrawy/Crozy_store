@@ -386,8 +386,12 @@ var DEFAULT_MENU = [
 
 function buildMenuItems(items){
   return items.map(function(item){
-    /* Strip emojis so the menu is text-only */
-    var cleanName = (item.name || '').replace(/[^\u0600-\u06FF\sA-Za-z0-9]/g, '').trim();
+    /* Robust emoji stripper: removes characters outside common text ranges */
+    var cleanName = (item.name || '')
+      .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E0}-\u{1F1FF}]/gu, '')
+      .replace(/[^\u0600-\u06FF\sA-Za-z0-9\-\.\(\)]/g, '')
+      .trim();
+      
     return '<a href="'+item.url+'" class="cmo-cat-item">'+
       '<div class="cmo-cat-left">'+
         '<span class="cmo-cat-name">'+cleanName+'</span>'+

@@ -261,11 +261,15 @@ salla-footer,
   font-family: 'Cairo', sans-serif;
   font-weight: 900;
   color: #fff;
-  font-size: clamp(18px, 5.5vw, 44px);
-  line-height: 1.45;
-  margin-bottom: clamp(5px, 1.2vw, 8px);
+  font-size: clamp(18px, 6vw, 38px); /* Slightly smaller max to avoid crowding */
+  line-height: 1.6; /* Higher line-height for Arabic characters */
+  margin-bottom: clamp(8px, 2vw, 12px); /* Increased margin */
   text-shadow: 0 2px 18px rgba(0, 0, 0, .6);
   word-break: break-word;
+}
+
+#cozy-hero .ch-desc {
+  line-height: 1.7; /* Better readability for the description */
 }
 
 #cozy-hero .ch-subtitle {
@@ -2182,9 +2186,7 @@ h2[class*="title"] {
 }
 
 .cmo-cat-icon {
-  font-size: clamp(20px, 5vw, 24px);
-  width: 32px;
-  text-align: center;
+  display: none !important; /* Force hide any icons mentioned in request */
 }
 
 .cmo-cat-name {
