@@ -581,6 +581,13 @@ var SHADOW_CSS =
   '}'+
   'img{max-width:100%!important;max-height:100%!important;object-fit:contain!important;}'+
 
+  /* ── Content Wrapper ── */
+  '[class*="content"],[part*="content"],[class*="info"]{'+
+    'display:flex!important;flex-direction:column!important;'+
+    'align-items:center!important;justify-content:flex-start!important;'+
+    'width:100%!important;gap:6px!important;text-align:center!important;'+
+  '}'+
+
   /* ── Wishlist – RED circle (left) ── */
   '[part="wishlist"],salla-wishlist-btn,'+
   'button[class*="wish"],button[class*="fav"],'+
@@ -625,16 +632,18 @@ var SHADOW_CSS =
     'border:none!important;cursor:pointer!important;'+
     'font-size:clamp(11px,2.8vw,15px)!important;'+
     'margin:clamp(6px,1.5vw,10px) 0 clamp(3px,.8vw,5px)!important;'+
-    'display:block!important;text-align:center!important;'+
+    'display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;flex-wrap:nowrap!important;'+
     'box-shadow:0 4px 14px rgba(26,20,17,.24)!important;'+
   '}'+
 
   /* ── Product name – clean text, NO box ── */
   '[part="name"],[class*="name"],[class*="title"]{'+
-    'font-weight:700!important;font-size:clamp(11px,2.8vw,15px)!important;'+
+    'font-weight:700!important;font-size:clamp(11px,3.2vw,15px)!important;'+
     'color:#1A1411!important;text-align:center!important;'+
-    'margin-bottom:clamp(2px,.6vw,4px)!important;'+
-    'background:transparent!important;box-shadow:none!important;'+
+    'margin-bottom:clamp(2px,.6vw,6px)!important;'+
+    'line-height:1.5!important;width:100%!important;'+
+    'display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;'+
+    'overflow:hidden!important;background:transparent!important;box-shadow:none!important;'+
     'border-radius:0!important;border:none!important;padding:2px 0!important;'+
   '}'+
 
@@ -644,6 +653,7 @@ var SHADOW_CSS =
     'color:#755C4C!important;text-align:center!important;'+
     'background:transparent!important;box-shadow:none!important;'+
     'border-radius:0!important;border:none!important;padding:0!important;'+
+    'margin-bottom:6px!important;'+
   '}';
 
 function styleProductCards(){
