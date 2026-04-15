@@ -625,7 +625,8 @@
     '[part="add"] svg,[class*="quick-add"] svg{stroke:#fff!important;fill:none!important;}' +
 
     /* ── Add-to-cart pill (bottom, full-width) ── */
-    '[part="add-to-cart"],salla-add-product-button button,' +
+    'salla-add-product-button{background:transparent!important;box-shadow:none!important;border:none!important;}'+
+    'salla-add-product-button button,' +
     'button[class*="add-to-cart"],button[class*="add-cart"],' +
     '[class*="add-product"] button,[class*="cart-btn"]{' +
     'background:linear-gradient(135deg,#1A1411 0%,#755C4C 100%)!important;' +

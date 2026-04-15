@@ -714,7 +714,12 @@ salla-product-card [part="add"] svg {
 }
 
 /* ── Add-to-cart → full-width gradient pill ── */
-salla-add-product-button,
+salla-add-product-button {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 salla-add-product-button button,
 [class*="add-product"] button,
 [class*="add-to-cart"] button,
