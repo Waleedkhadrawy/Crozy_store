@@ -29,7 +29,7 @@ function injectHeader(){
     '<div class="ch-strip">'+
       '<div class="ch-brand">'+
         '<a href="/" class="ch-brand-top" style="text-decoration:none">'+
-          '<img class="ch-logo" src="'+GH+'logo-header-new.png" alt="Cozy Style" '+
+          '<img class="ch-logo" src="'+GH+'logo.png" alt="Cozy Style" '+
                'onerror="if(!this.dataset.fallback){this.dataset.fallback=\'1\';this.src=\''+GH+'logo-header.png\';}else{this.style.display=\'none\'}"/>'+
         '</a>'+
         '<div class="ch-sub">'+
@@ -165,17 +165,28 @@ function initSlider(){
   var stage = document.getElementById('slVp');
   if(!track || !stage) return;
 
-  var SLIDES = ['New In','Sale','Decor','Offer','Banar'];
+  var SLIDES = [
+    {label:'أدوات مطبخ', url:'/categories/%D8%A3%D8%AF%D9%88%D8%A7%D8%AA-%D9%85%D8%B7%D8%A8%D8%AE'},
+    {label:'ديكور', url:'/categories/%D8%AF%D9%8A%D9%83%D9%88%D8%B1'},
+    {label:'منظفات', url:'/categories/%D9%85%D9%86%D8%B8%D9%81%D8%A7%D8%AA'},
+    {label:'غرف', url:'/categories/%D8%BA%D8%B1%D9%81-%D9%86%D9%88%D9%85'},
+    {label:'عروض', url:'/products/sale'}
+  ];
   var cur = 0, n = SLIDES.length;
 
-  SLIDES.forEach(function(label, i){
+  SLIDES.forEach(function(item, i){
     var card = document.createElement('div');
     card.className = 'sl-card' + (i === 0 ? ' active' : '');
-    var span = document.createElement('span');
-    span.className = 'sl-label';
-    span.textContent = label;
-    card.appendChild(span);
-    (function(idx){ card.addEventListener('click', function(){ goTo(idx); }); })(i);
+    var a = document.createElement('a');
+    a.href = item.url;
+    a.className = 'sl-label';
+    a.style.textDecoration = 'none';
+    a.textContent = item.label;
+    card.appendChild(a);
+    /* Only go to slide if not active. If active, let the link fire naturally */
+    (function(idx){ card.addEventListener('click', function(e){ 
+      if(cur !== idx) { e.preventDefault(); goTo(idx); }
+    }); })(i);
     track.appendChild(card);
   });
 
@@ -681,9 +692,10 @@ function observe(){
     injectBottomNav();
     fixBackgrounds();
     styleProductCards();
-    /* Hero only on homepage */
+    /* Hero + Slider only on homepage */
     if(isHomepage()){
       injectHero();
+      injectSlider();
     }
   });
   ob.observe(document.body, {childList:true, subtree:true});
@@ -702,6 +714,7 @@ ready(function(){
   styleProductCards();
   if(isHomepage()){
     injectHero();
+    injectSlider();
     injectAccPill();
     injectContactSection();
     fixNativeCategories();
@@ -717,6 +730,7 @@ ready(function(){
     styleProductCards();
     if(isHomepage()){
       injectHero();
+      injectSlider();
       injectAccPill();
       injectContactSection();
       fixNativeCategories();
