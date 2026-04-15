@@ -69,12 +69,13 @@ function injectHero(){
         '</button>'+
       '</div>'+
       /* 2-col grid */
-      '<div class="ch-grid">'+
-        '<div>'+
-          '<h1 class="ch-title">Home<br>Decor<br>And More</h1>'+
-          '<p class="ch-desc">All home decor and<br>accessories and all<br>things you need</p>'+
-        '</div>'+
-        '<div class="ch-right">'+
+      '<div class="ch-grid">' +
+      '<div>' +
+      '<h1 class="ch-title">بيتك<br>يستاهل<br>الأفضل</h1>' +
+      '<p class="ch-subtitle">مستلزمات منزلية بجودة عالية</p>' +
+      '<p class="ch-desc">أدوات مطبخ،<br>ديكور، منظمات، ومستلزمات سفر —<br>شحن سريع لجميع المناطق</p>' +
+      '</div>' +
+      '<div class="ch-right">' +
           /* Search */
           '<div class="ch-search">'+
             '<svg viewBox="0 0 24 24" fill="none" stroke="#755C4C" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>'+
@@ -385,9 +386,11 @@ var DEFAULT_MENU = [
 
 function buildMenuItems(items){
   return items.map(function(item){
+    /* Strip emojis so the menu is text-only */
+    var cleanName = (item.name || '').replace(/[^\u0600-\u06FF\sA-Za-z0-9]/g, '').trim();
     return '<a href="'+item.url+'" class="cmo-cat-item">'+
       '<div class="cmo-cat-left">'+
-        '<span class="cmo-cat-name">'+item.name+'</span>'+
+        '<span class="cmo-cat-name">'+cleanName+'</span>'+
       '</div>'+
       '<svg class="cmo-cat-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'+
     '</a>';

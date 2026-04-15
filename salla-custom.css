@@ -262,7 +262,7 @@ salla-footer,
   font-weight: 900;
   color: #fff;
   font-size: clamp(18px, 5.5vw, 44px);
-  line-height: 1.15;
+  line-height: 1.45;
   margin-bottom: clamp(5px, 1.2vw, 8px);
   text-shadow: 0 2px 18px rgba(0, 0, 0, .6);
   word-break: break-word;
