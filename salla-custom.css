@@ -22,7 +22,7 @@
 
 /* ══ PAGE BACKGROUND ═════════════════════════════════════════ */
 html,body {
-  background-image: url('https://raw.githubusercontent.com/ALIWOSABY/sallah-store_orig/main/images/background-for-pages.png') !important;
+  background-image: url('https://raw.githubusercontent.com/Waleedkhadrawy/Crozy_store/main/images/background-for-pages.png') !important;
   background-size:       cover   !important;
   background-position:   center  !important;
   background-attachment: fixed   !important;
@@ -98,7 +98,7 @@ footer,salla-footer,.s-footer,#footer,
 ══════════════════════════════════════════════════════════════ */
 #cozy-hero {
   position: relative;
-  background: url('https://raw.githubusercontent.com/ALIWOSABY/sallah-store_orig/main/images/background-baner-home.png') center/cover no-repeat;
+  background: url('https://raw.githubusercontent.com/Waleedkhadrawy/Crozy_store/main/images/background-baner-home.png') center/cover no-repeat;
   flex-shrink: 0;
 }
 #cozy-hero .ch-body       {padding:clamp(12px,3vw,18px) clamp(16px,4vw,26px) clamp(18px,4.5vw,26px);}

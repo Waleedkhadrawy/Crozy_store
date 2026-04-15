@@ -5,7 +5,7 @@
 (function(){
 'use strict';
 
-var GH = 'https://raw.githubusercontent.com/ALIWOSABY/sallah-store_orig/main/images/';
+var GH = 'https://raw.githubusercontent.com/Waleedkhadrawy/Crozy_store/main/images/';
 
 /* ── helper: run after DOM ready ───────────────────────────── */
 function ready(fn){
