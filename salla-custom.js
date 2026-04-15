@@ -118,7 +118,7 @@
     var next = document.getElementById('pkNext');
     if (!stage || !prev || !next) return;
 
-    var LABELS = ['%', 'Sale', 'New', 'Home', 'Shop', 'Hot'];
+    var LABELS = ['%', 'Sale', 'New', '🛋️', '🪴', '🏠'];
     var cur = 0, N = LABELS.length;
 
     function mod(v) { return (v % N + N) % N; }
@@ -376,21 +376,20 @@
 
   /* Default fallback nav items */
   var DEFAULT_MENU = [
-    { icon: '', name: 'الرئيسية', url: '/' },
-    { icon: '', name: 'أثاث', url: '/categories' },
-    { icon: '', name: 'إكسسوارات', url: '/categories' },
-    { icon: '', name: 'وصل حديثاً', url: '/products/new' },
-    { icon: '', name: 'عروض خاصة', url: '/products/sale' },
-    { icon: '', name: 'المفضلة', url: '/wishlist' }
+    { icon: '🏠', name: 'الرئيسية', url: '/' },
+    { icon: '🛋️', name: 'أثاث', url: '/categories' },
+    { icon: '🪴', name: 'إكسسوارات', url: '/categories' },
+    { icon: '✨', name: 'وصل حديثاً', url: '/products/new' },
+    { icon: '🔥', name: 'عروض خاصة', url: '/products/sale' },
+    { icon: '❤️', name: 'المفضلة', url: '/wishlist' }
   ];
 
   function buildMenuItems(items) {
     return items.map(function (item) {
-      /* Strip emojis so the menu is text-only */
-      var cleanName = (item.name || '').replace(/[^\u0600-\u06FF\sA-Za-z0-9]/g, '').trim();
       return '<a href="' + item.url + '" class="cmo-cat-item">' +
         '<div class="cmo-cat-left">' +
-        '<span class="cmo-cat-name">' + cleanName + '</span>' +
+        '<span class="cmo-cat-icon">' + (item.icon || '🏷️') + '</span>' +
+        '<span class="cmo-cat-name">' + item.name + '</span>' +
         '</div>' +
         '<svg class="cmo-cat-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>' +
         '</a>';
@@ -417,9 +416,9 @@
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
         if (data && data.data && data.data.length) {
-          var icons = ['', '', '', '', '', '', '', ''];
+          var icons = ['🏠', '🛋️', '🪴', '✨', '🔥', '❤️', '🎁', '🏷️'];
           var items = data.data.slice(0, 8).map(function (cat, i) {
-            return { icon: icons[i] || '', name: cat.name, url: cat.url || ('/categories/' + cat.id) };
+            return { icon: icons[i] || '🏷️', name: cat.name, url: cat.url || ('/categories/' + cat.id) };
           });
           _menuItems = items;
           cb(items);
