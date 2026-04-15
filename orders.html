@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cousy Style – My Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark  : #1A1411;
+      --brown : #755C4C;
+      --tan   : #C4A882;
+      --grad  : linear-gradient(135deg, #1A1411 0%, #755C4C 100%);
+    }
+    html, body { width: 100%; min-height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: url('images/background-for-pages.png') center center / cover no-repeat fixed;
+      background-color: #d4cfc9;
+      min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+      padding: clamp(16px, 4vw, 36px) clamp(12px, 4vw, 28px) 110px;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 220px; mix-blend-mode: multiply;
+    }
+    .page-wrap {
+      position: relative; z-index: 1; width: 100%; max-width: 520px;
+      display: flex; flex-direction: column; gap: clamp(12px, 3vw, 18px);
+    }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .page-title { font-size: clamp(20px, 5vw, 28px); font-weight: 800; color: var(--dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .back-btn {
+      width: clamp(36px, 8vw, 44px); height: clamp(36px, 8vw, 44px);
+      border-radius: 50%; border: none; cursor: pointer; background: rgba(26,20,17,0.08);
+      display: flex; align-items: center; justify-content: center; transition: background .2s; text-decoration: none;
+    }
+    .back-btn:hover { background: rgba(26,20,17,0.15); }
+    .back-btn svg { width: clamp(16px, 4vw, 20px); height: auto; }
+
+    /* Order Card */
+    .order-card {
+      background: rgba(248, 244, 240, 0.94); border-radius: clamp(16px, 4vw, 24px);
+      padding: clamp(16px, 4vw, 20px); box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .oc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(26,20,17,0.1); padding-bottom: 12px; }
+    .oc-id { font-weight: 800; font-size: clamp(14px, 3.5vw, 16px); color: var(--dark); }
+    .oc-status {
+      padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .status-processing { background: rgba(255, 152, 0, 0.15); color: #e65100; }
+    .status-shipped { background: rgba(33, 150, 243, 0.15); color: #0d47a1; }
+    .status-delivered { background: rgba(76, 175, 80, 0.15); color: #1b5e20; }
+
+    .oc-items { display: flex; flex-direction: column; gap: 8px; }
+    .oc-item { display: flex; align-items: center; gap: 12px; }
+    .oc-item-img {
+      width: clamp(50px, 12vw, 60px); height: clamp(50px, 12vw, 60px);
+      background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 4px;
+    }
+    .oc-item-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .oc-item-info { flex: 1; }
+    .oc-item-name { font-weight: 700; font-size: clamp(13px, 3.2vw, 15px); color: var(--dark); margin-bottom: 2px; }
+    .oc-item-qty { font-family: 'Raleway', sans-serif; font-size: 12px; font-weight: 600; color: rgba(26,20,17,0.6); }
+
+    .oc-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(26,20,17,0.1); padding-top: 12px; }
+    .oc-total-label { font-family: 'Raleway', sans-serif; font-weight: 600; font-size: clamp(13px, 3.5vw, 15px); color: var(--dark); }
+    .oc-total { font-weight: 900; font-size: clamp(16px, 4vw, 18px); color: var(--brown); }
+    
+    .track-btn {
+      padding: 8px 16px; border-radius: 999px; background: var(--grad); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12px; text-transform: uppercase;
+      border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(26,20,17,.2);
+      transition: opacity .2s; text-decoration: none;
+    }
+    .track-btn:hover { opacity: .86; }
+
+    @media (min-width: 640px) { .page-wrap { max-width: 600px; } }
+    @media (min-width: 1024px) { 
+      .page-wrap { max-width: 900px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-items: start; }
+      .page-header { grid-column: 1 / -1; }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <a href="profile.html" class="back-btn" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </a>
+    <h1 class="page-title">My Orders</h1>
+    <div style="width: 44px;"></div>
+  </div>
+
+  <div class="order-card">
+    <div class="oc-header">
+      <div class="oc-id">Order #CS-9021</div>
+      <div class="oc-status status-processing">Processing</div>
+    </div>
+    <div class="oc-items">
+      <div class="oc-item">
+        <div class="oc-item-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Item" onerror="this.src='images/IMG_4837.JPG'"></div>
+        <div class="oc-item-info">
+          <div class="oc-item-name">Home Accessories</div>
+          <div class="oc-item-qty">Qty: 1</div>
+        </div>
+      </div>
+      <div class="oc-item">
+        <div class="oc-item-img"><img src="images/chaire.jpeg" alt="Item" onerror="this.src='images/IMG_4837.JPG'"></div>
+        <div class="oc-item-info">
+          <div class="oc-item-name">High Quality Chair</div>
+          <div class="oc-item-qty">Qty: 1</div>
+        </div>
+      </div>
+    </div>
+    <div class="oc-footer">
+      <div>
+        <span class="oc-total-label">Total:</span>
+        <span class="oc-total">$65.00</span>
+      </div>
+      <a href="#" class="track-btn">Track Order</a>
+    </div>
+  </div>
+
+  <div class="order-card">
+    <div class="oc-header">
+      <div class="oc-id">Order #CS-8543</div>
+      <div class="oc-status status-shipped">Shipped</div>
+    </div>
+    <div class="oc-items">
+      <div class="oc-item">
+        <div class="oc-item-img"><img src="images/chaire.jpeg" alt="Item" onerror="this.src='images/IMG_4837.JPG'"></div>
+        <div class="oc-item-info">
+          <div class="oc-item-name">Modern Chair</div>
+          <div class="oc-item-qty">Qty: 2</div>
+        </div>
+      </div>
+    </div>
+    <div class="oc-footer">
+      <div>
+        <span class="oc-total-label">Total:</span>
+        <span class="oc-total">$85.00</span>
+      </div>
+      <a href="#" class="track-btn">Track Order</a>
+    </div>
+  </div>
+
+  <div class="order-card">
+    <div class="oc-header">
+      <div class="oc-id">Order #CS-7320</div>
+      <div class="oc-status status-delivered">Delivered</div>
+    </div>
+    <div class="oc-items">
+      <div class="oc-item">
+        <div class="oc-item-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Item" onerror="this.src='images/IMG_4837.JPG'"></div>
+        <div class="oc-item-info">
+          <div class="oc-item-name">Vintage Vase</div>
+          <div class="oc-item-qty">Qty: 1</div>
+        </div>
+      </div>
+    </div>
+    <div class="oc-footer">
+      <div>
+        <span class="oc-total-label">Total:</span>
+        <span class="oc-total">$35.00</span>
+      </div>
+      <a href="#" class="track-btn" style="background: rgba(26,20,17,0.1); color: var(--dark); box-shadow: none;">View Details</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

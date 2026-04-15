@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cousy Style – Checkout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark  : #1A1411;
+      --brown : #755C4C;
+      --tan   : #C4A882;
+      --grad  : linear-gradient(135deg, #1A1411 0%, #755C4C 100%);
+    }
+    html, body { width: 100%; min-height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: url('images/background-for-pages.png') center center / cover no-repeat fixed;
+      background-color: #d4cfc9;
+      min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+      padding: clamp(16px, 4vw, 36px) clamp(12px, 4vw, 28px) 110px;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 220px; mix-blend-mode: multiply;
+    }
+    .page-wrap {
+      position: relative; z-index: 1; width: 100%; max-width: 480px;
+      display: flex; flex-direction: column; gap: clamp(12px, 3vw, 18px);
+    }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .page-title { font-size: clamp(20px, 5vw, 28px); font-weight: 800; color: var(--dark); text-transform: uppercase; letter-spacing: 0.05em; }
+    .back-btn {
+      width: clamp(36px, 8vw, 44px); height: clamp(36px, 8vw, 44px);
+      border-radius: 50%; border: none; cursor: pointer; background: rgba(26,20,17,0.08);
+      display: flex; align-items: center; justify-content: center; transition: background .2s; text-decoration: none;
+    }
+    .back-btn:hover { background: rgba(26,20,17,0.15); }
+    .back-btn svg { width: clamp(16px, 4vw, 20px); height: auto; }
+
+    .form-card {
+      background: rgba(248, 244, 240, 0.94); border-radius: clamp(20px, 5vw, 28px);
+      padding: clamp(16px, 4vw, 24px); box-shadow: 0 8px 36px rgba(0,0,0,0.12);
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .section-title { font-weight: 800; font-size: clamp(15px, 4vw, 18px); color: var(--dark); margin-bottom: 4px; border-bottom: 2px solid rgba(26,20,17,0.05); padding-bottom: 8px;}
+    
+    .input-grp { display: flex; flex-direction: column; gap: 6px; }
+    .input-grp label { font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 13px; color: var(--dark); }
+    .input-grp input, .input-grp select {
+      width: 100%; padding: 12px 16px; border-radius: 12px;
+      border: 1px solid rgba(26,20,17,0.15); background: rgba(255,255,255,0.6);
+      font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--dark);
+      outline: none; transition: border 0.3s, background 0.3s;
+    }
+    .input-grp input:focus, .input-grp select:focus { border-color: var(--brown); background: #fff; }
+    
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* Payment Methods */
+    .pay-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
+    .pay-opt {
+      background: #fff; border: 2px solid rgba(26,20,17,0.1); border-radius: 12px;
+      padding: 10px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s; height: 50px;
+    }
+    .pay-opt img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .pay-opt.active { border-color: var(--brown); background: rgba(196, 168, 130, 0.1); box-shadow: 0 4px 12px rgba(117, 92, 76, 0.2); }
+
+    .summary-block {
+      background: rgba(228, 222, 214, 0.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-radius: clamp(20px, 5vw, 28px); padding: clamp(16px, 4vw, 24px);
+      border: 1px solid rgba(255,255,255,0.40); box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      margin-top: 10px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px; font-weight: 600; font-size: clamp(13px, 3.5vw, 15px); color: var(--dark);
+    }
+    .summary-row.total { font-size: clamp(18px, 4vw, 22px); font-weight: 900; border-top: 1px solid rgba(26,20,17,0.1); padding-top: 12px; margin-bottom: 0; }
+    
+    .checkout-btn {
+      width: 100%; margin-top: 20px;
+      padding: clamp(14px, 3.8vw, 18px); border-radius: 999px;
+      background: var(--grad); color: #fff; text-transform: uppercase; letter-spacing: 0.05em;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(13px, 3.5vw, 16px);
+      border: none; cursor: pointer; box-shadow: 0 6px 20px rgba(26,20,17,.25); text-align: center; text-decoration: none;
+      display: block; transition: opacity .2s, transform .2s;
+    }
+    .checkout-btn:hover { opacity: .9; transform: translateY(-2px); }
+
+    @media (min-width: 640px) { .page-wrap { max-width: 660px; } }
+    @media (min-width: 1024px) {
+      .page-wrap { max-width: 800px; display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+      .page-header { grid-column: 1 / -1; }
+      .form-card { margin-bottom: 0; }
+      .summary-block { margin-top: 0; position: sticky; top: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <a href="cart.html" class="back-btn" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </a>
+    <h1 class="page-title">Checkout</h1>
+    <div style="width: 44px;"></div>
+  </div>
+
+  <div class="form-card">
+    <div class="section-title">Shipping Address</div>
+    
+    <div class="input-grp">
+      <label>Full Name</label>
+      <input type="text" placeholder="John Doe">
+    </div>
+    
+    <div class="input-grp">
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+966 50 000 0000">
+    </div>
+    
+    <div class="input-grp">
+      <label>Area / City</label>
+      <select>
+        <option>Riyadh</option>
+        <option>Jeddah</option>
+        <option>Dammam</option>
+      </select>
+    </div>
+    
+    <div class="input-grp">
+      <label>Detailed Address</label>
+      <input type="text" placeholder="Street name, Building number...">
+    </div>
+  </div>
+
+  <div class="form-card">
+    <div class="section-title">Payment Method</div>
+    <div class="pay-methods">
+      <div class="pay-opt active" onclick="document.querySelectorAll('.pay-opt').forEach(el=>el.classList.remove('active')); this.classList.add('active');"><img src="images/apple-pay.png" alt="Apple Pay" onerror="this.style.display='none'"></div>
+      <div class="pay-opt" onclick="document.querySelectorAll('.pay-opt').forEach(el=>el.classList.remove('active')); this.classList.add('active');"><img src="images/visa.png" alt="Visa" onerror="this.style.display='none'"></div>
+      <div class="pay-opt" onclick="document.querySelectorAll('.pay-opt').forEach(el=>el.classList.remove('active')); this.classList.add('active');"><img src="images/madapay.png" alt="Mada" onerror="this.style.display='none'"></div>
+    </div>
+    
+    <div class="row-2" style="margin-top: 10px;">
+      <div class="input-grp">
+        <label>Card Number</label>
+        <input type="text" placeholder="**** **** **** ****">
+      </div>
+      <div class="row-2">
+        <div class="input-grp">
+          <label>Exp</label>
+          <input type="text" placeholder="MM/YY">
+        </div>
+        <div class="input-grp">
+          <label>CVV</label>
+          <input type="text" placeholder="123">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-block">
+    <div class="summary-row total"><span>Total to Pay</span><span>$65.00</span></div>
+    <button class="checkout-btn" onclick="alert('Order placed successfully!'); window.location.href='orders.html'">Confirm Order</button>
+  </div>
+
+</div>
+
+</body>
+</html>

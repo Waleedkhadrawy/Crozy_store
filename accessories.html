@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cousy Style – Home Decor</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#1A1411;
+  --brown:#755C4C;
+  --tan:#C4A882;
+  --grad:linear-gradient(135deg,#1A1411 0%,#755C4C 100%);
+  --ff:'Poppins','Montserrat',sans-serif;
+  --nav-h:clamp(62px,10vw,80px);
+}
+
+html,body{
+  width:100%; min-height:100%;
+  font-family:var(--ff);
+}
+
+/* ── PAGE BACKGROUND ─────────────────────── */
+body{
+  background:url('images/background-for-pages.png') center/cover no-repeat fixed;
+  background-color:#cac5bf;
+  display:flex; justify-content:center; align-items:flex-start;
+  padding:0; margin:0;
+}
+
+/* ── PHONE SHELL ─────────────────────────── */
+.shell{
+  width:100%;
+  min-height:100vh;
+  display:flex; flex-direction:column;
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* grain overlay on shell */
+.shell::after{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:220px; mix-blend-mode:multiply;
+}
+.shell>*{position:relative;z-index:1;}
+
+/* inner card feel on mobile */
+@media(max-width:639px){
+  body{padding:clamp(10px,3vw,20px) clamp(8px,3vw,16px) clamp(20px,5vw,36px);}
+  .shell{
+    max-width:440px;
+    border-radius:clamp(24px,6vw,40px);
+    overflow:hidden;
+    min-height:unset;
+    box-shadow:0 24px 80px rgba(0,0,0,.18),0 4px 16px rgba(0,0,0,.09);
+  }
+}
+
+/* ── HEADER ──────────────────────────────── */
+.top-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:clamp(14px,2.5vw,22px) clamp(16px,3.5vw,36px);
+  background:rgba(252,248,244,.82);
+  backdrop-filter:blur(12px);
+  position:sticky; top:0; z-index:100;
+  border-bottom:1px solid rgba(26,20,17,.06);
+}
+
+/* menu btn */
+.menu-btn{
+  display:flex; flex-direction:column; gap:clamp(3.5px,.5vw,5.5px);
+  cursor:pointer; padding:4px; background:none; border:none;
+}
+.menu-btn span{
+  display:block; background:var(--dark); border-radius:2px;
+  height:clamp(2px,.25vw,3px);
+}
+.menu-btn span:nth-child(1){width:clamp(22px,3.5vw,32px);}
+.menu-btn span:nth-child(2){width:clamp(14px,2.2vw,22px);}
+.menu-btn span:nth-child(3){width:clamp(18px,2.8vw,28px);}
+
+/* logo center */
+.header-logo{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+.header-logo img{
+  height:clamp(20px,3vw,34px); width:auto; object-fit:contain;
+}
+.header-logo-sub{
+  font-family:'Raleway',sans-serif; font-weight:500;
+  font-size:clamp(5.5px,.7vw,8px); letter-spacing:.22em;
+  color:var(--tan); text-transform:uppercase;
+  display:flex; align-items:center; gap:5px;
+}
+.header-logo-sub::before,.header-logo-sub::after{
+  content:''; display:block; width:clamp(14px,2vw,24px); height:1.4px;
+  background:linear-gradient(90deg,transparent,var(--brown),transparent);
+  border-radius:2px;
+}
+.header-logo-fb{display:none;align-items:center;gap:6px;}
+.header-logo-name{font-weight:900;font-size:clamp(11px,1.5vw,18px);letter-spacing:.10em;color:var(--dark);text-transform:uppercase;}
+
+/* search btn */
+.search-btn{
+  width:clamp(36px,4.5vw,52px); height:clamp(36px,4.5vw,52px);
+  border-radius:50%; border:2px solid var(--dark);
+  background:transparent; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s;
+}
+.search-btn:hover{background:rgba(26,20,17,.06);}
+.search-btn img,.search-btn svg{
+  width:clamp(14px,1.8vw,22px); height:auto; object-fit:contain;
+}
+
+/* ── TITLE BLOCK ─────────────────────────── */
+.title-block{
+  padding:clamp(18px,3vw,34px) clamp(16px,3.5vw,36px) clamp(10px,1.5vw,18px);
+}
+.page-title{
+  font-weight:900; color:var(--dark);
+  font-size:clamp(26px,5vw,56px); line-height:1.05;
+  margin-bottom:clamp(4px,.6vw,8px);
+}
+.page-subtitle{
+  font-family:'Raleway',sans-serif; font-weight:500;
+  font-size:clamp(13px,1.8vw,20px); color:rgba(26,20,17,.60);
+}
+
+/* ── CATEGORY TABS ───────────────────────── */
+.tabs-row{
+  display:flex; align-items:center;
+  gap:clamp(12px,2.5vw,30px);
+  padding:clamp(6px,1.2vw,12px) clamp(16px,3.5vw,36px) clamp(10px,1.8vw,18px);
+  overflow-x:auto; scrollbar-width:none;
+}
+.tabs-row::-webkit-scrollbar{display:none;}
+.tab-item{
+  font-weight:600; font-size:clamp(12px,1.5vw,17px);
+  color:rgba(26,20,17,.50); cursor:pointer; white-space:nowrap;
+  background:none; border:none; padding:0; transition:color .2s;
+  font-family:var(--ff);
+}
+.tab-item:hover{color:var(--dark);}
+.tab-item.active{
+  background:var(--grad); color:#fff;
+  border-radius:999px;
+  padding:clamp(6px,.9vw,10px) clamp(16px,2.5vw,28px);
+  font-weight:700;
+  box-shadow:0 4px 14px rgba(26,20,17,.22);
+}
+
+/* ── PRODUCTS GRID ───────────────────────── */
+.products-main{
+  padding:clamp(4px,.8vw,10px) clamp(12px,2.5vw,28px) 0;
+  flex:1;
+}
+.prod-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(10px,2vw,22px);
+}
+@media(max-width:380px){
+  .prod-grid{grid-template-columns:1fr;}
+}
+@media(min-width:1024px){
+  .prod-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(min-width:1400px){
+  .prod-grid{grid-template-columns:repeat(4,1fr);}
+}
+
+/* ── PRODUCT CARD ────────────────────────── */
+.prod-card{
+  background:rgba(252,248,244,.96);
+  border-radius:clamp(14px,2vw,24px);
+  padding:clamp(10px,1.5vw,18px);
+  display:flex; flex-direction:column; align-items:center;
+  box-shadow:0 2px 18px rgba(0,0,0,.08);
+  transition:transform .2s, box-shadow .2s;
+}
+.prod-card:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,0,0,.12);}
+
+.card-top{
+  width:100%; display:flex; align-items:center;
+  justify-content:space-between;
+  margin-bottom:clamp(6px,1vw,12px);
+}
+.card-add{
+  width:clamp(30px,3.5vw,44px); height:clamp(30px,3.5vw,44px);
+  border-radius:clamp(8px,1.2vw,14px); background:var(--grad);
+  border:none; cursor:pointer; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 3px 10px rgba(26,20,17,.28);
+  transition:opacity .2s;
+}
+.card-add:hover{opacity:.82;}
+.card-add svg{width:clamp(11px,1.4vw,16px); height:auto;}
+
+.card-dots{display:flex;gap:3px;align-items:center;cursor:pointer;}
+.card-dots span{
+  display:block;
+  width:clamp(3.5px,.45vw,5px); height:clamp(3.5px,.45vw,5px);
+  border-radius:50%; background:var(--dark);
+}
+
+.card-img{
+  width:100%; aspect-ratio:1/1;
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(8px,1.5vw,18px);
+  margin-bottom:clamp(8px,1.2vw,16px);
+}
+.card-img img{
+  max-width:100%; max-height:100%;
+  object-fit:contain; display:block;
+}
+
+.card-buy{
+  width:100%;
+  padding:clamp(9px,1.1vw,14px) clamp(6px,1vw,10px);
+  border-radius:999px; background:var(--grad); color:#fff;
+  font-family:var(--ff); font-weight:700;
+  font-size:clamp(10px,1.2vw,15px);
+  border:none; cursor:pointer;
+  margin-bottom:clamp(6px,.9vw,12px);
+  box-shadow:0 4px 14px rgba(26,20,17,.22);
+  transition:opacity .2s;
+}
+.card-buy:hover{opacity:.86;}
+
+.card-name{
+  font-weight:700; font-size:clamp(11px,1.2vw,15px);
+  color:var(--dark); text-align:center; margin-bottom:3px;
+}
+.card-price{
+  font-weight:800; font-size:clamp(11px,1.2vw,15px);
+  color:var(--dark); text-align:center;
+}
+
+/* ── BOTTOM FLOATING NAV ─────────────────── */
+.page-spacer{
+  /* push content above nav */
+  height:calc(var(--nav-h) + clamp(16px,3vw,28px));
+  flex-shrink:0;
+}
+
+.bottom-nav{
+  position:fixed; bottom:clamp(14px,2.5vw,24px);
+  left:50%; transform:translateX(-50%);
+  width:min(calc(100% - clamp(32px,8vw,80px)), 520px);
+  height:var(--nav-h);
+  background:var(--grad);
+  border-radius:999px;
+  display:flex; align-items:center; justify-content:space-around;
+  padding:0 clamp(16px,3vw,36px);
+  box-shadow:0 8px 32px rgba(26,20,17,.35);
+  z-index:200;
+}
+.nav-btn{
+  width:clamp(38px,5vw,52px); height:clamp(38px,5vw,52px);
+  display:flex; align-items:center; justify-content:center;
+  background:none; border:none; cursor:pointer;
+  border-radius:50%; transition:background .2s;
+}
+.nav-btn:hover{background:rgba(255,255,255,.12);}
+.nav-btn img{
+  width:clamp(26px,3.2vw,38px); height:clamp(26px,3.2vw,38px);
+  object-fit:contain; filter:brightness(0) invert(1);
+}
+.nav-btn svg{
+  width:clamp(22px,2.8vw,32px); height:clamp(22px,2.8vw,32px);
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ══ HEADER ══ -->
+  <header class="top-header">
+
+    <!-- Menu icon -->
+    <button class="menu-btn" aria-label="Menu">
+      <img src="images/menu-for-menu.png" alt="Menu"
+           style="width:clamp(22px,3vw,34px);height:auto;object-fit:contain;"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div style="display:none;flex-direction:column;gap:4px;">
+        <span style="display:block;background:#1A1411;border-radius:2px;height:2.5px;width:clamp(20px,3vw,30px);"></span>
+        <span style="display:block;background:#1A1411;border-radius:2px;height:2.5px;width:clamp(13px,2vw,20px);"></span>
+        <span style="display:block;background:#1A1411;border-radius:2px;height:2.5px;width:clamp(16px,2.5vw,24px);"></span>
+      </div>
+    </button>
+
+    <!-- Centre: logo-menu.png — contains full brand with house -->
+    <div class="header-logo">
+      <img src="images/logo-menu.png" alt="Cousy Style"
+           style="height:clamp(28px,4vw,48px);width:auto;object-fit:contain;display:block;"
+           onerror="this.style.display='none';document.getElementById('hLogoFb').style.display='flex'"/>
+      <div id="hLogoFb" class="header-logo-fb" style="display:none;">
+        <span class="header-logo-name">Cousy Style</span>
+        <svg style="width:clamp(20px,2.8vw,34px);height:auto" viewBox="0 0 58 62" fill="none">
+          <polyline points="4,28 29,4 54,28" stroke="#1A1411" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="10" y1="27" x2="10" y2="56" stroke="#1A1411" stroke-width="4" stroke-linecap="round"/>
+          <line x1="48" y1="27" x2="48" y2="56" stroke="#1A1411" stroke-width="4" stroke-linecap="round"/>
+          <line x1="10" y1="56" x2="48" y2="56" stroke="#1A1411" stroke-width="4" stroke-linecap="round"/>
+          <line x1="29" y1="14" x2="29" y2="33" stroke="#1A1411" stroke-width="2.2" stroke-linecap="round"/>
+          <ellipse cx="29" cy="38" rx="8" ry="6" fill="#C4A882"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Search circle -->
+    <button class="search-btn" aria-label="Search">
+      <img src="images/search.png" alt="Search"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
+      </svg>
+    </button>
+
+  </header>
+
+  <!-- ══ TITLE ══ -->
+  <div class="title-block">
+    <h1 class="page-title">Home Decor</h1>
+    <p class="page-subtitle">Every one loves!</p>
+  </div>
+
+  <!-- ══ TABS ══ -->
+  <div class="tabs-row" id="tabsRow">
+    <button class="tab-item" onclick="setTab(this,'sofas')">Sofas</button>
+    <button class="tab-item" onclick="setTab(this,'accessories')">Accessories</button>
+    <button class="tab-item" onclick="setTab(this,'tables')">Tables</button>
+    <button class="tab-item active" onclick="setTab(this,'all')">All</button>
+  </div>
+
+  <!-- ══ PRODUCTS ══ -->
+  <main class="products-main">
+    <div class="prod-grid">
+
+      <!-- Row 1 -->
+      <div class="prod-card">
+        <div class="card-top">
+          <button class="card-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="card-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+        <button class="card-buy">Buy it Now</button>
+        <p class="card-name">Accessories</p>
+        <p class="card-price">$15.00</p>
+      </div>
+
+      <div class="prod-card">
+        <div class="card-top">
+          <button class="card-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="card-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-img"><img src="images/chaire.jpeg" alt="Chair"/></div>
+        <button class="card-buy">Buy it Now</button>
+        <p class="card-name">Accessories</p>
+        <p class="card-price">$15.00</p>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="prod-card">
+        <div class="card-top">
+          <button class="card-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="card-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+        <button class="card-buy">Buy it Now</button>
+        <p class="card-name">Accessories</p>
+        <p class="card-price">$15.00</p>
+      </div>
+
+      <div class="prod-card">
+        <div class="card-top">
+          <button class="card-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="card-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-img"><img src="images/chaire.jpeg" alt="Chair"/></div>
+        <button class="card-buy">Buy it Now</button>
+        <p class="card-name">Accessories</p>
+        <p class="card-price">$15.00</p>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="prod-card">
+        <div class="card-top">
+          <button class="card-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="card-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+        <button class="card-buy">Buy it Now</button>
+        <p class="card-name">Accessories</p>
+        <p class="card-price">$15.00</p>
+      </div>
+
+      <div class="prod-card">
+        <div class="card-top">
+          <button class="card-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="card-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="card-img"><img src="images/chaire.jpeg" alt="Chair"/></div>
+        <button class="card-buy">Buy it Now</button>
+        <p class="card-name">Accessories</p>
+        <p class="card-price">$15.00</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- spacer so content doesn't hide behind nav -->
+  <div class="page-spacer"></div>
+
+</div><!-- /shell -->
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav" aria-label="Main navigation">
+
+  <button class="nav-btn" aria-label="Profile">
+    <img src="images/users (2).png" alt="User"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-5 3.8-8.5 8.5-8.5s8.5 3.5 8.5 8.5"/>
+    </svg>
+  </button>
+
+  <button class="nav-btn" aria-label="Home">
+    <img src="images/home-logo.png" alt="Home"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+      <path d="M9 21V12h6v9"/>
+    </svg>
+  </button>
+
+  <button class="nav-btn" aria-label="Cart">
+    <img src="images/cart.png" alt="Cart"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+    </svg>
+  </button>
+
+</nav>
+
+<script>
+function setTab(el, cat) {
+  document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>

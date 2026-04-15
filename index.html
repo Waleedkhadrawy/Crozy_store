@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cousy Style – Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#1A1411;
+  --brown:#755C4C;
+  --tan:#C4A882;
+  --grad:linear-gradient(135deg,#1A1411 0%,#755C4C 100%);
+  --ff:'Poppins','Montserrat',sans-serif;
+}
+html,body{width:100%;min-height:100%;font-family:var(--ff);}
+body{
+  background:url('images/background-for-pages.png') center/cover no-repeat fixed;
+  background-color:#c8c3bc;
+  display:flex;justify-content:center;align-items:flex-start;
+  padding:0;margin:0;
+}
+
+/* ─── PHONE SHELL ─────────────────────────── */
+.phone{
+  width:100%;
+  display:flex;flex-direction:column;
+  background:url('images/background-for-pages.png') center/cover no-repeat;
+  background-color:#d2cdc6;
+  min-height:100vh;
+}
+/* Mobile only: phone card look */
+@media(max-width:639px){
+  body{padding:clamp(10px,2.5vw,20px) clamp(6px,2vw,12px) clamp(20px,4vw,36px);}
+  .phone{
+    max-width:430px;
+    border-radius:clamp(26px,6.5vw,42px);
+    overflow:hidden;
+    box-shadow:0 28px 90px rgba(0,0,0,.22),0 4px 18px rgba(0,0,0,.11);
+    min-height:unset;
+  }
+}
+
+/* ─── A. HEADER + HERO SHELL ──────────────── */
+.hero-shell{
+  position:relative;
+  background:url('images/background-baner-home.png') center/cover no-repeat;
+  flex-shrink:0;
+  border-radius:clamp(26px,6.5vw,42px) clamp(26px,6.5vw,42px) 0 0;
+  overflow:hidden;
+}
+
+/* Header strip */
+.site-header{
+  background:rgba(14,9,6,.91);
+  padding:clamp(13px,3.2vw,18px) clamp(18px,4.5vw,32px) clamp(11px,2.8vw,15px);
+  display:flex;align-items:center;justify-content:center;
+}
+.brand{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.brand-top{display:flex;align-items:center;gap:clamp(7px,1.8vw,13px);}
+.brand-logo{height:clamp(20px,4.8vw,36px);width:auto;object-fit:contain;}
+.brand-name{font-weight:900;font-size:clamp(13px,3.3vw,21px);letter-spacing:.10em;color:#fff;text-transform:uppercase;}
+.brand-house{width:clamp(24px,5.2vw,38px);height:auto;}
+.brand-sub{display:flex;align-items:center;gap:7px;}
+.sub-line{width:clamp(22px,4.8vw,40px);height:1.6px;background:linear-gradient(90deg,transparent,var(--brown),var(--tan),transparent);border-radius:2px;}
+.sub-text{font-family:'Raleway',sans-serif;font-weight:500;font-size:clamp(5.5px,1.3vw,8px);letter-spacing:.26em;color:var(--tan);text-transform:uppercase;}
+
+/* Hero body */
+.hero-body{padding:clamp(12px,3vw,18px) clamp(16px,4vw,26px) clamp(18px,4.5vw,26px);}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(12px,3vw,20px);}
+.topbar-left{display:flex;align-items:center;gap:clamp(5px,1.5vw,10px);}
+.i-btn{width:clamp(30px,7vw,42px);height:clamp(30px,7vw,42px);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.i-btn img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1);}
+.i-btn svg{width:clamp(24px,5.5vw,34px);height:auto;}
+.menu-btn{display:flex;flex-direction:column;gap:3.5px;cursor:pointer;}
+.menu-btn span{display:block;background:#fff;border-radius:2px;height:2.2px;}
+.menu-btn span:nth-child(1){width:clamp(16px,4vw,24px);}
+.menu-btn span:nth-child(2){width:clamp(11px,2.8vw,17px);}
+
+/* 2-col grid */
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(8px,2.2vw,16px);align-items:start;}
+
+.hero-title{
+  font-weight:900;color:#fff;
+  font-size:clamp(20px,6vw,44px);
+  line-height:1.03;text-transform:uppercase;
+  margin-bottom:clamp(7px,1.8vw,13px);
+  text-shadow:0 2px 18px rgba(0,0,0,.6);
+}
+.hero-desc{
+  font-family:'Raleway',sans-serif;font-weight:600;
+  font-size:clamp(9.5px,2.3vw,12.5px);
+  color:rgba(255,255,255,.82);line-height:1.65;
+  text-shadow:0 1px 8px rgba(0,0,0,.55);
+}
+.hero-right{display:flex;flex-direction:column;gap:clamp(9px,2.2vw,14px);}
+
+/* Search pill */
+.search-bar{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(235,225,213,.84);backdrop-filter:blur(16px);
+  border-radius:999px;border:1px solid rgba(255,255,255,.45);
+  padding:clamp(6px,1.6vw,9px) clamp(10px,2.8vw,16px);
+}
+.search-bar img,.search-bar .s-ico{width:clamp(13px,3.2vw,18px);flex-shrink:0;object-fit:contain;}
+.search-bar input{flex:1;border:none;background:transparent;outline:none;font-family:var(--ff);font-size:clamp(9px,2.3vw,12px);color:#1A1411;min-width:0;}
+.search-bar input::placeholder{color:#999;}
+
+/* ── PEEK CAROUSEL — matches header_and_banner.html exactly ── */
+.glass-wrap{
+  position:relative;
+  width:100%;
+  height:clamp(140px,35vw,215px);
+  overflow:hidden;
+}
+.glass-stage{
+  /* this IS the stage — pk-cards are absolute inside here */
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+}
+/* Card base */
+.pk-card{
+  position:absolute;
+  border-radius:clamp(18px,4.5vw,24px);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--ff); font-weight:900; color:#1A1411;
+  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  border:1.5px solid rgba(255,255,255,0.55);
+  background:linear-gradient(145deg,rgba(255,255,255,.82) 0%,rgba(215,198,180,.68) 100%);
+  box-shadow:0 12px 40px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.90);
+  user-select:none;
+}
+/* CENTER card */
+.pk-center{
+  width:clamp(110px,28vw,175px);
+  height:clamp(110px,28vw,175px);
+  font-size:clamp(36px,9vw,68px);
+  z-index:5;
+  left:50%; transform:translateX(-50%);
+  background:linear-gradient(145deg,rgba(255,255,255,.90) 0%,rgba(228,212,196,.80) 100%);
+  box-shadow:0 16px 52px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.96);
+}
+/* SIDE peek cards */
+.pk-side{
+  width:clamp(86px,22vw,135px);
+  height:clamp(86px,22vw,135px);
+  font-size:clamp(22px,6vw,42px);
+  z-index:3; opacity:.74;
+  background:linear-gradient(145deg,rgba(255,255,255,.55) 0%,rgba(195,178,162,.48) 100%);
+  box-shadow:0 6px 24px rgba(0,0,0,.18);
+}
+/* Peek positions — side cards half-hidden behind center */
+.pk-left{
+  right:calc(50% + clamp(110px,28vw,175px)/2 - 44px);
+}
+.pk-right{
+  left:calc(50% + clamp(110px,28vw,175px)/2 - 44px);
+}
+/* Arrows */
+.pk-arr{
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:10; background:none; border:none; cursor:pointer;
+  padding:6px; opacity:.85; transition:opacity .2s;
+}
+.pk-arr:hover{opacity:.45;}
+.pk-arr.prev{left:4px;} .pk-arr.next{right:4px;}
+.pk-arr svg{width:clamp(18px,4.5vw,26px); height:auto;}
+
+/* ─── B. BANNER SLIDER — matches slider-stage.html exactly ─── */
+.slider-section{
+  position:relative;
+  width:100%;
+  height:clamp(180px,38vw,340px);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+
+.slider-vp{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+
+.slider-track{
+  display:flex;
+  align-items:center;
+  gap:0;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  transition:transform 0.52s cubic-bezier(0.4,0,0.2,1);
+}
+
+.s-card{
+  flex-shrink:0;
+  width:  clamp(240px,68vw,680px);
+  height: clamp(130px,24vw,220px);
+  border-radius:clamp(28px,5vw,52px);
+  background:rgba(255,255,255,.90);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 clamp(10px,2vw,22px);
+  box-shadow:0 4px 32px rgba(0,0,0,.07), 0 1px 4px rgba(0,0,0,.04);
+  transition:transform 0.4s ease, opacity 0.4s ease;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+.s-card::after{
+  content:'';
+  position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size:200px; border-radius:inherit; pointer-events:none; opacity:0.6;
+}
+.s-card:not(.active){
+  opacity:0.82;
+  transform:scale(0.94);
+}
+.s-card.active{
+  opacity:1;
+  transform:scale(1);
+}
+.s-label{
+  font-family:var(--ff);font-weight:800;
+  font-size:clamp(22px,4.5vw,58px);
+  color:#111;letter-spacing:.18em;text-align:center;
+  position:relative;z-index:1;user-select:none;
+}
+
+/* ─── C. ACCESSORIES BAR ──────────────────── */
+.acc-section{
+  padding:clamp(4px,1.2vw,8px) clamp(12px,3vw,20px) clamp(5px,1.5vw,10px);
+}
+.acc-pill{
+  position:relative;width:100%;
+  height:clamp(50px,12vw,76px);
+  border-radius:999px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:#1A1411;
+}
+.acc-pill::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 120% at 62% 50%,rgba(117,92,76,.86) 0%,rgba(78,46,26,.55) 44%,transparent 72%),
+    radial-gradient(ellipse 28% 78% at 17% 56%,rgba(140,80,28,.26) 0%,transparent 66%);
+  z-index:1;
+}
+.acc-pill::after{
+  content:'';position:absolute;inset:0;z-index:2;opacity:.46;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='230' height='230'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='230' height='230' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+  background-size:230px;mix-blend-mode:overlay;
+}
+.acc-title{
+  position:relative;z-index:3;
+  font-family:var(--ff);font-weight:900;
+  font-size:clamp(12px,3.2vw,21px);
+  color:#fff;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;
+}
+.acc-footer{display:flex;align-items:center;padding-top:clamp(4px,1.2vw,7px);}
+.acc-line{flex:1;height:1px;background:rgba(26,20,17,.16);margin-right:8px;border-radius:1px;}
+.acc-more{
+  display:flex;align-items:center;gap:2px;
+  font-family:var(--ff);font-weight:600;font-size:clamp(9.5px,2.4vw,13px);
+  color:#777;white-space:nowrap;cursor:pointer;text-decoration:none;transition:color .2s;
+}
+.acc-more:hover{color:#444;}
+.acc-more svg{width:12px;height:12px;}
+
+/* ─── D. PRODUCT CARDS ────────────────────── */
+.products-section{
+  padding:clamp(3px,1vw,7px) clamp(9px,2.2vw,16px) clamp(16px,4.2vw,26px);
+}
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(6px,1.8vw,12px);
+}
+@media(max-width:360px){
+  .products-grid{
+    grid-template-columns:repeat(3,clamp(108px,35vw,145px));
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .products-grid::-webkit-scrollbar{display:none;}
+}
+
+.p-card{
+  background:rgba(252,248,244,.95);
+  border-radius:clamp(14px,3.5vw,22px);
+  padding:clamp(10px,2.5vw,16px);
+  display:flex;flex-direction:column;align-items:center;
+  box-shadow:0 2px 14px rgba(0,0,0,.09);
+}
+.p-top{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:clamp(6px,1.8vw,12px);
+}
+/* + button — large rounded square, gradient, big + */
+.p-add{
+  width:clamp(34px,8.5vw,48px);height:clamp(34px,8.5vw,48px);
+  border-radius:clamp(10px,2.5vw,15px);
+  background:linear-gradient(135deg,#1A1411 0%,#755C4C 100%);
+  border:none;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(26,20,17,.30);
+  transition:opacity .2s;
+}
+.p-add:hover{opacity:.82;}
+.p-add svg{width:clamp(14px,3.5vw,20px);height:clamp(14px,3.5vw,20px);}
+/* three-dots → menu-one.png image */
+.p-dots{display:flex;align-items:center;cursor:pointer;flex-shrink:0;}
+.p-dots img{width:clamp(22px,5.5vw,34px);height:auto;object-fit:contain;}
+.p-img{
+  width:100%;aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(6px,1.5vw,12px);
+  margin-bottom:clamp(8px,2vw,14px);
+}
+.p-img img{max-width:100%;max-height:100%;object-fit:contain;}
+/* Buy it Now — larger, pill, gradient */
+.p-buy{
+  width:100%;
+  padding:clamp(10px,2.5vw,14px) 6px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#1A1411 0%,#755C4C 100%);
+  color:#fff;
+  font-family:var(--ff);font-weight:800;
+  font-size:clamp(11px,2.8vw,15px);
+  border:none;cursor:pointer;
+  margin-bottom:clamp(7px,1.8vw,12px);
+  transition:opacity .2s;
+  box-shadow:0 4px 14px rgba(26,20,17,.24);
+}
+.p-buy:hover{opacity:.86;}
+/* Accessories text */
+.p-name{
+  font-weight:700;
+  font-size:clamp(11px,2.8vw,15px);
+  color:var(--dark);text-align:center;
+  margin-bottom:clamp(2px,.6vw,4px);
+}
+/* $15.00 price */
+.p-price{
+  font-weight:800;
+  font-size:clamp(11px,2.8vw,15px);
+  color:var(--dark);text-align:center;
+}
+
+/* ─── FULL SCREEN RESPONSIVE ───────────────────────── */
+
+/* iPad / tablet (640–1023px) */
+@media(min-width:640px){
+  .hero-shell{ border-radius:0; }
+  .hero-title{ font-size:clamp(30px,5.5vw,62px); }
+  .hero-desc{ font-size:clamp(13px,2vw,17px); }
+  .hero-body{ padding:clamp(18px,3vw,28px) clamp(28px,5vw,60px) clamp(22px,3.5vw,34px); }
+  .brand-logo{ height:clamp(28px,4.5vw,48px); }
+  .brand-name{ font-size:clamp(18px,3vw,30px); }
+  .glass-wrap{ height:clamp(150px,28vw,215px); }
+  .slider-vp{ height:clamp(200px,30vw,280px); }
+  .s-card{ --cw:clamp(280px,44vw,420px); --ch:clamp(170px,25vw,240px); }
+  .s-label{ font-size:clamp(28px,5vw,52px); }
+  .acc-pill{ height:clamp(58px,9vw,86px); }
+  .acc-title{ font-size:clamp(16px,3vw,28px); }
+  .products-grid{ grid-template-columns:repeat(3,1fr); gap:clamp(12px,2.5vw,24px); }
+  .acc-section{ padding:clamp(6px,1.5vw,12px) clamp(20px,4vw,40px) clamp(8px,2vw,16px); }
+  .products-section{ padding:clamp(4px,1vw,10px) clamp(18px,3.5vw,36px) clamp(20px,4vw,40px); }
+}
+
+/* Desktop (1024px+) */
+@media(min-width:1024px){
+  .hero-shell{ border-radius:0; }
+  .hero-title{ font-size:clamp(42px,5vw,80px); }
+  .hero-desc{ font-size:clamp(15px,1.6vw,20px); }
+  .hero-body{ padding:clamp(24px,2.5vw,36px) clamp(48px,6vw,100px) clamp(28px,3vw,44px); }
+  .brand-logo{ height:clamp(32px,3.5vw,52px); }
+  .brand-name{ font-size:clamp(22px,2.5vw,38px); }
+  .site-header{ padding:clamp(16px,2vw,24px) clamp(40px,6vw,90px) clamp(14px,1.8vw,20px); }
+  .glass-wrap{ height:clamp(160px,22vw,215px); }
+  .slider-vp{ height:clamp(220px,24vw,320px); }
+  .s-card{ --cw:clamp(340px,40vw,520px); --ch:clamp(190px,20vw,270px); --gap:clamp(14px,2vw,24px); }
+  .s-label{ font-size:clamp(32px,4.5vw,62px); }
+  .acc-pill{ height:clamp(64px,7vw,96px); }
+  .acc-title{ font-size:clamp(18px,2.5vw,34px); }
+  .products-grid{ grid-template-columns:repeat(3,1fr); gap:clamp(16px,2vw,32px); }
+  .acc-section{ padding:clamp(8px,1vw,14px) clamp(40px,6vw,90px) clamp(10px,1.5vw,18px); }
+  .products-section{ padding:clamp(6px,0.8vw,12px) clamp(36px,5.5vw,82px) clamp(24px,3.5vw,52px); }
+  .p-card{ border-radius:clamp(18px,1.8vw,26px); padding:clamp(14px,1.6vw,22px); }
+  .p-add{ width:clamp(42px,3.8vw,58px); height:clamp(42px,3.8vw,58px); border-radius:clamp(12px,1.4vw,18px); }
+  .p-add svg{ width:clamp(18px,2vw,24px); height:clamp(18px,2vw,24px); }
+  .p-dots img{ width:clamp(26px,3vw,38px); }
+  .p-buy{ font-size:clamp(13px,1.4vw,18px); padding:clamp(12px,1.3vw,16px) 8px; }
+  .p-name,.p-price{ font-size:clamp(13px,1.4vw,17px); }
+}
+
+/* Wide desktop (1440px+) */
+@media(min-width:1440px){
+  .hero-grid{ grid-template-columns:1.2fr 1fr; gap:clamp(20px,3vw,50px); }
+}
+
+/* ══════════════════════════════════════════════
+   CONTACT / SOCIAL SECTION — full-screen responsive
+══════════════════════════════════════════════ */
+
+/* ── wrapper: fills 100% of .phone (already full-width on desktop) ── */
+.cs-shell {
+  width: 100%;
+  display: flex; flex-direction: column;
+  padding: clamp(18px,3vw,36px) clamp(16px,4vw,52px) clamp(22px,3.5vw,44px);
+  gap: clamp(14px,2.5vw,28px);
+  background: transparent;
+  position: relative; z-index: 1;
+}
+.cs-shell > * { position: relative; z-index: 1; }
+
+/* ── 2-product cards row ── */
+.products-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(10px,2vw,24px);
+}
+.products-row .p-card {
+  background: rgba(252,248,244,.96);
+  border-radius: clamp(14px,1.5vw,22px);
+  padding: clamp(10px,1.2vw,18px);
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 3px 16px rgba(0,0,0,.08);
+}
+.products-row .p-top {
+  width:100%; display:flex; align-items:center;
+  justify-content:space-between; margin-bottom: clamp(8px,1vw,14px);
+}
+.products-row .p-add {
+  width: clamp(32px,3vw,46px); height: clamp(32px,3vw,46px);
+  border-radius: clamp(9px,1vw,14px); background: var(--grad);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 3px 10px rgba(26,20,17,.28);
+}
+.products-row .p-add svg { width: clamp(13px,1.4vw,18px); height: auto; }
+.products-row .p-dots { display:flex; gap:3.5px; align-items:center; cursor:pointer; }
+.products-row .p-dots span {
+  display:block; width: clamp(4px,.5vw,5.5px); height: clamp(4px,.5vw,5.5px);
+  border-radius:50%; background: var(--dark);
+}
+.products-row .p-img {
+  width:100%; aspect-ratio:1/1;
+  display:flex; align-items:center; justify-content:center;
+  padding: clamp(6px,1vw,14px); margin-bottom: clamp(8px,1vw,14px);
+}
+.products-row .p-img img { max-width:100%; max-height:100%; object-fit:contain; }
+.products-row .p-buy {
+  width:100%; padding: clamp(9px,1vw,14px);
+  border-radius:999px; background: var(--grad); color:#fff;
+  font-family: var(--ff); font-weight:700;
+  font-size: clamp(11px,1.1vw,16px);
+  border:none; cursor:pointer; margin-bottom: clamp(6px,.8vw,10px);
+  box-shadow: 0 4px 14px rgba(26,20,17,.22); transition: opacity .2s;
+}
+.products-row .p-buy:hover { opacity:.86; }
+.products-row .p-name {
+  font-weight:700; font-size: clamp(11px,1vw,15px);
+  color: var(--dark); text-align:center;
+}
+
+/* ── divider ── */
+.divider { width:100%; height:1px; background:rgba(26,20,17,.15); border-radius:1px; }
+
+/* ── social section ── */
+.social-section { display:flex; flex-direction:column; gap: clamp(12px,1.5vw,22px); }
+.follow-title {
+  font-weight:800; text-transform:uppercase; letter-spacing:.05em;
+  font-size: clamp(16px,2vw,30px); color: var(--dark);
+}
+.social-icons { display:flex; gap: clamp(12px,2vw,28px); align-items:center; flex-wrap:wrap; }
+.soc-btn {
+  width: clamp(48px,4.5vw,70px); height: clamp(48px,4.5vw,70px);
+  border-radius:50%; background:none; border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  padding:0; overflow:hidden;
+  transition: transform .2s, opacity .2s;
+}
+.soc-btn:hover { transform:scale(1.07); opacity:.88; }
+.soc-btn img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.soc-btn svg { width:60%; height:60%; }
+
+/* ── phone CTA bar ── */
+.phone-cta {
+  display:flex; align-items:center; justify-content:space-between;
+  background: var(--grad); border-radius:999px;
+  padding: clamp(13px,1.4vw,20px) clamp(16px,2vw,30px);
+  box-shadow: 0 6px 22px rgba(26,20,17,.30); gap:12px;
+}
+.phone-number {
+  font-weight:700; color:#fff; direction:ltr;
+  font-size: clamp(13px,1.4vw,20px); letter-spacing:.02em;
+}
+.call-circle {
+  width: clamp(36px,3.5vw,52px); height: clamp(36px,3.5vw,52px);
+  border-radius:50%; background:#fff; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.14);
+}
+.call-circle svg { width: clamp(16px,1.8vw,24px); height:auto; }
+
+/* ── footer info panel — card-like, not full-width ── */
+.info-panel {
+  background: rgba(252,248,244,.92);
+  border-radius: clamp(22px,4vw,36px);
+  padding: clamp(16px,3vw,26px) clamp(14px,3vw,24px);
+  display:flex; flex-direction:column; gap: clamp(14px,2.5vw,22px);
+  box-shadow: 0 4px 20px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.05);
+  /* stays as a contained card at all sizes */
+  width:100%;
+}
+.logos-row {
+  display:flex; align-items:center; justify-content:space-between;
+  gap: clamp(8px,2vw,16px);
+}
+/* store logo: logo-menu.png is wide, cap height */
+.store-logo { display:flex; align-items:center; flex-shrink:0; }
+.store-logo img.logo-img {
+  height:clamp(32px,6vw,54px);
+  width:auto; max-width:clamp(100px,30vw,200px);
+  object-fit:contain;
+}
+.logo-fb { display:none; align-items:center; gap:5px; }
+.logo-name { font-weight:900; letter-spacing:.08em; color:var(--dark); text-transform:uppercase; font-size:clamp(10px,2vw,16px); }
+.logo-house { width:clamp(18px,3vw,28px); height:auto; }
+.ministry-logo { display:flex; align-items:center; justify-content:flex-end; flex-shrink:0; }
+.ministry-logo img { height:clamp(36px,6.5vw,62px); width:auto; max-width:clamp(80px,20vw,160px); object-fit:contain; }
+.ministry-fb { display:none; flex-direction:column; align-items:center; gap:3px; background:rgba(240,235,228,.80); border-radius:8px; padding:8px 10px; }
+.ministry-icon { font-size:clamp(18px,3vw,28px); line-height:1; }
+.ministry-text { font-size:clamp(7px,1.2vw,10px); font-weight:600; color:var(--dark); text-align:center; line-height:1.3; }
+
+/* Payment badges: 4-col grid, compact */
+.pay-row {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(6px,1.5vw,12px);
+}
+@media(max-width:360px){ .pay-row{ grid-template-columns:repeat(2,1fr); } }
+/* pay-badge: images already have built-in white bg and borders from designer */
+.pay-badge {
+  display:flex; align-items:center; justify-content:center;
+  background:none; border:none; padding:0;
+}
+.pay-badge img {
+  width:100%; height:auto;
+  max-height:clamp(44px,8vw,70px);
+  object-fit:contain;
+  display:block;
+}
+
+/* small mobile fallback */
+@media(max-width:639px){
+  .cs-shell{ padding:clamp(16px,4.5vw,24px) clamp(14px,4vw,22px) clamp(20px,5vw,30px); gap:clamp(12px,3.5vw,20px); }
+  .products-row .p-add{ width:clamp(32px,8vw,40px); height:clamp(32px,8vw,40px); }
+  .soc-btn{ width:clamp(46px,12vw,62px); height:clamp(46px,12vw,62px); }
+  .follow-title{ font-size:clamp(15px,4.5vw,22px); }
+  .phone-number{ font-size:clamp(12px,3.2vw,16px); }
+  .call-circle{ width:clamp(34px,8vw,44px); height:clamp(34px,8vw,44px); }
+}
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- ══ HEADER + HERO ══ -->
+  <div class="hero-shell">
+
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-top">
+          <img class="brand-logo" src="images/logo-header.png" alt="Cousy Style"
+               onerror="this.style.display='none';document.getElementById('bFb').style.display='flex'"/>
+          <div id="bFb" style="display:none;align-items:center;gap:8px;">
+            <span class="brand-name">Cousy Style</span>
+            <svg class="brand-house" viewBox="0 0 58 62" fill="none">
+              <polyline points="4,28 29,4 54,28" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="10" y1="27" x2="10" y2="56" stroke="white" stroke-width="4" stroke-linecap="round"/>
+              <line x1="48" y1="27" x2="48" y2="56" stroke="white" stroke-width="4" stroke-linecap="round"/>
+              <line x1="10" y1="56" x2="48" y2="56" stroke="white" stroke-width="4" stroke-linecap="round"/>
+              <line x1="29" y1="14" x2="29" y2="33" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <ellipse cx="29" cy="38" rx="8" ry="6" fill="#C4A882"/>
+              <ellipse cx="29" cy="33.5" rx="3" ry="2" fill="#C4A882"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <div class="hero-body">
+      <!-- Top icons -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <a href="login-register.html" class="i-btn" aria-label="Login/Register">
+            <img src="images/user-login.png" alt="User"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+            <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-5 3.8-8.5 8.5-8.5s8.5 3.5 8.5 8.5"/></svg>
+          </a>
+          <a href="cart.html" class="i-btn" aria-label="Cart">
+            <img src="images/cart.png" alt="Cart"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+            <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          </a>
+        </div>
+        <a href="menu.html" class="i-btn" style="width:auto; text-decoration:none;" aria-label="Menu">
+          <img src="images/menu.png" alt="Menu"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="menu-btn" style="display:none"><span></span><span></span></div>
+        </a>
+      </div>
+
+      <!-- 2-col layout -->
+      <div class="hero-grid">
+        <!-- Left: title + desc -->
+        <div>
+          <h1 class="hero-title">Home<br>Decore<br>And More</h1>
+          <p class="hero-desc">All home decor and<br>accessories and all<br>things you need</p>
+        </div>
+        <!-- Right: search + glass carousel -->
+        <div class="hero-right">
+          <div class="search-bar">
+            <img src="images/search.png" alt="Search"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+            <svg class="s-ico" style="display:none" viewBox="0 0 24 24" fill="none" stroke="#755C4C" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+            <input type="text" placeholder="Search…"/>
+          </div>
+
+          <!-- Glass peek carousel — same structure as header_and_banner.html -->
+          <div class="glass-wrap" id="pkWrap">
+            <div class="glass-stage" id="pkStage"></div>
+            <button class="pk-arr prev" id="pkPrev">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="pk-arr next" id="pkNext">
+              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /hero-shell -->
+
+  <!-- ══ BANNER SLIDER ══ -->
+  <div class="slider-section">
+    <div class="slider-vp" id="sliderVp">
+      <div class="slider-track" id="sliderTrack"></div>
+    </div>
+  </div>
+
+  <!-- ══ ACCESSORIES ══ -->
+  <div class="acc-section">
+    <div class="acc-pill"><span class="acc-title">Home&nbsp;Accessories</span></div>
+    <div class="acc-footer">
+      <div class="acc-line"></div>
+      <a class="acc-more" href="#">more
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ PRODUCT CARDS ══ -->
+  <div class="products-section">
+    <div class="products-grid" id="prodGrid">
+
+      <div class="p-card">
+        <div class="p-top">
+          <button class="p-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="p-dots"><img src="images/menu-one.png" alt="menu"/></div>
+        </div>
+        <div class="p-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+        <button class="p-buy">Buy it Now</button>
+        <p class="p-name">Accessories</p>
+        <p class="p-price">$15.00</p>
+      </div>
+
+      <div class="p-card">
+        <div class="p-top">
+          <button class="p-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="p-dots"><img src="images/menu-one.png" alt="menu"/></div>
+        </div>
+        <div class="p-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+        <button class="p-buy">Buy it Now</button>
+        <p class="p-name">Accessories</p>
+        <p class="p-price">$15.00</p>
+      </div>
+
+      <div class="p-card">
+        <div class="p-top">
+          <button class="p-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="p-dots"><img src="images/menu-one.png" alt="menu"/></div>
+        </div>
+        <div class="p-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+        <button class="p-buy">Buy it Now</button>
+        <p class="p-name">Accessories</p>
+        <p class="p-price">$15.00</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══ CONTACT / SOCIAL SECTION (merged) ══ -->
+<div class="cs-shell">
+
+  <!-- ══ PRODUCTS ══ -->
+  <div class="products-row">
+    <div class="p-card">
+      <div class="p-top">
+        <button class="p-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="p-dots"><img src="images/menu-one.png" alt="menu"/></div>
+      </div>
+      <div class="p-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+      <button class="p-buy">Buy it Now</button>
+      <p class="p-name">Accessories</p>
+    </div>
+    <div class="p-card">
+      <div class="p-top">
+        <button class="p-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="p-dots"><img src="images/menu-one.png" alt="menu"/></div>
+      </div>
+      <div class="p-img"><img src="images/chaire.jpeg" alt="Chair" onerror="this.src='images/IMG_4837.JPG'"/></div>
+      <button class="p-buy">Buy it Now</button>
+      <p class="p-name">Accessories</p>
+    </div>
+  </div>
+
+  <!-- ══ DIVIDER ══ -->
+  <div class="divider"></div>
+
+  <!-- ══ SOCIAL ══ -->
+  <div class="social-section">
+    <p class="follow-title">Follow Us On:</p>
+    <div class="social-icons">
+
+      <button class="soc-btn" aria-label="Instagram">
+        <img src="images/instagram.png" alt="Instagram"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white"/>
+        </svg>
+      </button>
+
+      <button class="soc-btn" aria-label="TikTok">
+        <img src="images/tiktok.png" alt="TikTok"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <svg style="display:none" viewBox="0 0 24 24" fill="white">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.2 8.2 0 004.79 1.53V6.84a4.85 4.85 0 01-1.02-.15z"/>
+        </svg>
+      </button>
+
+      <button class="soc-btn" aria-label="WhatsApp">
+        <img src="images/whatsapp.png" alt="WhatsApp"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+        <svg style="display:none" viewBox="0 0 24 24" fill="white">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ══ PHONE CTA ══ -->
+  <div class="phone-cta">
+    <span class="phone-number">tel:+966503676809</span>
+    <div class="call-circle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012.6 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.57a16 16 0 006.29 6.29l.96-.9a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER PANEL ══ -->
+  <div class="info-panel">
+
+    <div class="logos-row">
+
+      <!-- Store logo: logo-menu.png contains full brand mark -->
+      <div class="store-logo">
+        <img class="logo-img" src="images/logo-menu.png" alt="Cousy Style"
+             onerror="this.style.display='none';document.getElementById('lFb').style.display='flex'"/>
+        <div class="logo-fb" id="lFb" style="display:none;align-items:center;gap:6px;">
+          <span class="logo-name">Cousy Style</span>
+          <svg class="logo-house" viewBox="0 0 58 62" fill="none">
+            <polyline points="4,28 29,4 54,28" stroke="#1A1411" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="10" y1="27" x2="10" y2="56" stroke="#1A1411" stroke-width="4" stroke-linecap="round"/>
+            <line x1="48" y1="27" x2="48" y2="56" stroke="#1A1411" stroke-width="4" stroke-linecap="round"/>
+            <line x1="10" y1="56" x2="48" y2="56" stroke="#1A1411" stroke-width="4" stroke-linecap="round"/>
+            <line x1="29" y1="14" x2="29" y2="33" stroke="#1A1411" stroke-width="2.2" stroke-linecap="round"/>
+            <ellipse cx="29" cy="38" rx="8" ry="6" fill="#C4A882"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Ministry -->
+      <div class="ministry-logo">
+        <img src="images/ministryofcommerce.png" alt="Ministry of Commerce"
+             onerror="this.style.display='none';document.getElementById('minFb').style.display='flex'"/>
+        <div class="ministry-fb" id="minFb">
+          <span class="ministry-icon">🌿</span>
+          <span class="ministry-text">وزارة التجارة<br>Ministry of Commerce</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Payment badges -->
+    <div class="pay-row">
+
+      <div class="pay-badge stc">
+        <img src="images/stcbank.png" alt="STC Bank"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"/>
+        <span style="display:none">STC Bank</span>
+      </div>
+
+      <div class="pay-badge mada">
+        <img src="images/madapay.png" alt="mada"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="mada-wrap" style="display:none">
+          <div class="mada-bar"></div>
+          <span>mada</span>
+        </div>
+      </div>
+
+      <div class="pay-badge apple">
+        <img src="images/apple-pay.png" alt="Apple Pay"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"/>
+        <span style="display:none">🍎 Pay</span>
+      </div>
+
+      <div class="pay-badge visa">
+        <img src="images/visa.png" alt="VISA"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"/>
+        <span style="display:none">VISA</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+  <!-- /contact-social -->
+
+</div><!-- /phone -->
+
+<script>
+/* ══ GLASS PEEK CAROUSEL (hero right) ══════════════════ */
+(function(){
+  const LABELS=['%','Sale','New','🛋️','🪴','🏠'];
+  let cur=0, N=LABELS.length;
+  const stage=document.getElementById('pkStage');
+  function mod(v){return(v%N+N)%N;}
+  function render(){
+    stage.innerHTML='';
+    // left side peek
+    const lEl=document.createElement('div');
+    lEl.className='pk-card pk-side pk-left';
+    lEl.textContent=LABELS[mod(cur-1)];
+    stage.appendChild(lEl);
+    // right side peek
+    const rEl=document.createElement('div');
+    rEl.className='pk-card pk-side pk-right';
+    rEl.textContent=LABELS[mod(cur+1)];
+    stage.appendChild(rEl);
+    // centre card (on top)
+    const cEl=document.createElement('div');
+    cEl.className='pk-card pk-center';
+    cEl.textContent=LABELS[cur];
+    stage.appendChild(cEl);
+  }
+  document.getElementById('pkPrev').addEventListener('click',()=>{cur=mod(cur-1);render();});
+  document.getElementById('pkNext').addEventListener('click',()=>{cur=mod(cur+1);render();});
+  setInterval(()=>{cur=mod(cur+1);render();},3900);
+  render();
+})();
+
+/* ══ BANNER SLIDER — matches slider-stage.html exactly ══════ */
+(function(){
+  const SLIDES=['Banar','Offer','New In','Sale','Decor'];
+  let cur=0;
+  const n=SLIDES.length;
+  const track=document.getElementById('sliderTrack');
+  const stage=document.getElementById('sliderVp');
+
+  // Build all cards once
+  SLIDES.forEach((label,i)=>{
+    const card=document.createElement('div');
+    card.className='s-card'+(i===0?' active':'');
+    card.dataset.idx=i;
+    const span=document.createElement('span');
+    span.className='s-label';
+    span.textContent=label;
+    card.appendChild(span);
+    card.addEventListener('click',()=>{ goTo(i); });
+    track.appendChild(card);
+  });
+
+  const cards=track.querySelectorAll('.s-card');
+
+  function getCardFullWidth(){
+    const c=cards[0];
+    const style=getComputedStyle(c);
+    return c.offsetWidth+parseFloat(style.marginLeft)+parseFloat(style.marginRight);
+  }
+
+  function goTo(idx){
+    cur=(idx+n)%n;
+    const fw=getCardFullWidth();
+    track.style.transform=`translateX(calc(-50% + ${-cur*fw}px))`;
+    cards.forEach((c,i)=>{ c.classList.toggle('active',i===cur); });
+  }
+
+  // Keyboard
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft')  goTo(cur-1);
+    if(e.key==='ArrowRight') goTo(cur+1);
+  });
+
+  // Swipe
+  let tx=0;
+  stage.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+  stage.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(dx>50) goTo(cur-1);
+    if(dx<-50) goTo(cur+1);
+  },{passive:true});
+
+  // Auto-advance
+  setInterval(()=>goTo(cur+1),4000);
+
+  // Init (no animation flash)
+  track.style.transition='none';
+  goTo(0);
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      track.style.transition='';
+    });
+  });
+})();
+</script>
+</body>
+</html>

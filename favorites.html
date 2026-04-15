@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cousy Style – Favorites</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark  : #1A1411;
+      --brown : #755C4C;
+      --tan   : #C4A882;
+      --grad  : linear-gradient(135deg, #1A1411 0%, #755C4C 100%);
+    }
+    html, body { width: 100%; min-height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: url('images/background-for-pages.png') center center / cover no-repeat fixed;
+      background-color: #d4cfc9;
+      min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+      padding: clamp(16px, 4vw, 36px) clamp(12px, 4vw, 28px) 110px;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 220px; mix-blend-mode: multiply;
+    }
+    .page-wrap {
+      position: relative; z-index: 1; width: 100%; max-width: 600px;
+      display: flex; flex-direction: column; gap: clamp(12px, 3vw, 18px);
+    }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+    .page-title { font-size: clamp(20px, 5vw, 28px); font-weight: 800; color: var(--dark); text-transform: uppercase; letter-spacing: 0.05em; display:flex; align-items:center; gap: 8px;}
+    .page-title svg { width: clamp(22px, 5.5vw, 30px); height: auto; color: #ff4757; fill: #ff4757; }
+    .back-btn {
+      width: clamp(36px, 8vw, 44px); height: clamp(36px, 8vw, 44px);
+      border-radius: 50%; border: none; cursor: pointer; background: rgba(26,20,17,0.08);
+      display: flex; align-items: center; justify-content: center; transition: background .2s; text-decoration: none;
+    }
+    .back-btn:hover { background: rgba(26,20,17,0.15); }
+    .back-btn svg { width: clamp(16px, 4vw, 20px); height: auto; }
+
+    /* Product Grid */
+    .products-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(10px, 2.5vw, 16px);
+    }
+    @media (min-width: 600px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px) { .products-grid { grid-template-columns: repeat(4, 1fr); } .page-wrap { max-width: 1000px; } }
+
+    .p-card {
+      background: rgba(252,248,244,.95); border-radius: clamp(16px, 4vw, 24px);
+      padding: clamp(12px, 3vw, 18px); display: flex; flex-direction: column; align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08); position: relative;
+    }
+    .p-top { width: 100%; display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .fav-btn {
+      width: clamp(34px, 8.5vw, 42px); height: clamp(34px, 8.5vw, 42px); border-radius: 50%;
+      background: rgba(255, 71, 87, 0.1); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .fav-btn:hover { background: rgba(255, 71, 87, 0.2); }
+    .fav-btn svg { width: clamp(18px, 4.5vw, 22px); height: auto; color: #ff4757; fill: #ff4757; }
+    
+    .p-add {
+      width: clamp(34px, 8.5vw, 42px); height: clamp(34px, 8.5vw, 42px); border-radius: clamp(10px, 2.5vw, 14px);
+      background: var(--grad); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(26,20,17,.30); transition: opacity .2s;
+    }
+    .p-add:hover { opacity: .82; }
+    .p-add svg { width: clamp(16px, 4vw, 20px); height: auto; }
+
+    .p-img {
+      width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
+      padding: clamp(6px, 1.5vw, 12px); margin-bottom: 10px; background: #fff; border-radius: 12px;
+    }
+    .p-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    
+    .p-name { font-weight: 700; font-size: clamp(12px, 3vw, 15px); color: var(--dark); text-align: center; margin-bottom: 4px; line-height: 1.2; }
+    .p-price { font-weight: 800; font-size: clamp(13px, 3.2vw, 16px); color: var(--brown); text-align: center; }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed; bottom: clamp(14px, 2.5vw, 24px); left: 50%; transform: translateX(-50%);
+      width: min(calc(100% - clamp(32px,8vw,80px)), 520px); height: clamp(62px, 10vw, 80px);
+      background: var(--grad); border-radius: 999px; display: flex; align-items: center; justify-content: space-around;
+      padding: 0 clamp(16px, 3vw, 36px); box-shadow: 0 8px 32px rgba(26,20,17,.35); z-index: 200;
+    }
+    .nav-btn {
+      width: clamp(38px, 5vw, 52px); height: clamp(38px, 5vw, 52px); display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer; border-radius: 50%; transition: background .2s;
+    }
+    .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,.15); }
+    .nav-btn img { width: clamp(26px, 3.2vw, 38px); height: auto; filter: brightness(0) invert(1); }
+    .nav-btn svg { width: clamp(26px, 3.2vw, 34px); height: auto; }
+
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <a href="index.html" class="back-btn" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </a>
+    <h1 class="page-title">
+      Favorites
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+    </h1>
+    <div style="width: 44px;"></div>
+  </div>
+
+  <div class="products-grid">
+    <div class="p-card">
+      <div class="p-top">
+        <button class="fav-btn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+        <button class="p-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+      <div class="p-img"><img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/></div>
+      <p class="p-name">Home Accessories</p>
+      <p class="p-price">$15.00</p>
+    </div>
+
+    <div class="p-card">
+      <div class="p-top">
+        <button class="fav-btn"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+        <button class="p-add"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      </div>
+      <div class="p-img"><img src="images/chaire.jpeg" alt="Chair" onerror="this.src='images/IMG_4837.JPG'"/></div>
+      <p class="p-name">High Quality Chair</p>
+      <p class="p-price">$45.00</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn" onclick="window.location.href='profile.html'">
+    <img src="images/users (2).png" alt="User" onerror="this.style.display='none'">
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-5 3.8-8.5 8.5-8.5s8.5 3.5 8.5 8.5"/></svg>
+  </button>
+  <button class="nav-btn" onclick="window.location.href='index.html'">
+    <img src="images/home-logo.png" alt="Home" onerror="this.style.display='none'">
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+  </button>
+  <button class="nav-btn" onclick="window.location.href='cart.html'">
+    <img src="images/cart.png" alt="Cart" onerror="this.style.display='none'">
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+  </button>
+</nav>
+
+</body>
+</html>

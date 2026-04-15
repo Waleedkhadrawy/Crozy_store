@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cousy Style – Product Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark  : #1A1411;
+      --brown : #755C4C;
+      --tan   : #C4A882;
+      --grad  : linear-gradient(135deg, #1A1411 0%, #755C4C 100%);
+    }
+
+    /* ── PAGE ─────────────────────────────────── */
+    html, body { width: 100%; min-height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: url('images/background-for-pages.png') center center / cover no-repeat fixed;
+      background-color: #d4cfc9;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(16px, 4vw, 36px) clamp(12px, 4vw, 28px) 110px;
+    }
+
+    /* subtle grain */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 220px; mix-blend-mode: multiply;
+    }
+
+    /* ── WRAPPER ──────────────────────────────── */
+    .page-wrap {
+      position: relative; z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      display: flex; flex-direction: column;
+      gap: clamp(12px, 3vw, 18px);
+    }
+
+    /* ── TWO-COLUMN TOP AREA ──────────────────── */
+    .top-area {
+      display: grid;
+      grid-template-columns: 1fr clamp(118px, 30%, 148px);
+      gap: clamp(10px, 2.5vw, 14px);
+      align-items: start;
+    }
+
+    /* stack on very small screens */
+    @media (max-width: 400px) {
+      .top-area { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════════════
+       MAIN CARD
+    ══════════════════════════════════════════ */
+    .main-card {
+      background: rgba(248, 244, 240, 0.94);
+      border-radius: clamp(20px, 5vw, 28px);
+      padding: clamp(12px, 3vw, 16px);
+      display: flex; flex-direction: column;
+      box-shadow: 0 8px 36px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* header row */
+    .mc-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: clamp(8px, 2vw, 12px);
+    }
+    .mc-back {
+      width: clamp(30px, 6.5vw, 38px); height: clamp(30px, 6.5vw, 38px);
+      border-radius: 50%; border: none; cursor: pointer;
+      background: rgba(26,20,17,0.08);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .mc-back:hover { background: rgba(26,20,17,0.15); }
+    .mc-back svg { width: clamp(13px, 3vw, 17px); height: auto; }
+
+    .mc-cart-btn {
+      width: clamp(30px, 6.5vw, 38px); height: clamp(30px, 6.5vw, 38px);
+      border-radius: 50%; border: none; cursor: pointer;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 10px rgba(26,20,17,.30);
+      transition: opacity .2s;
+    }
+    .mc-cart-btn:hover { opacity: .82; }
+    .mc-cart-btn img { width: clamp(14px, 3vw, 18px); height: auto; filter: brightness(0) invert(1); }
+    .mc-cart-btn svg { width: clamp(14px, 3vw, 18px); height: auto; }
+
+    /* product image */
+    .mc-img {
+      width: 100%; aspect-ratio: 5/4;
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(6px, 2vw, 10px);
+      margin-bottom: clamp(10px, 2.5vw, 14px);
+    }
+    .mc-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+    /* title + qty row */
+    .mc-title-row {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px; margin-bottom: 6px; flex-wrap: wrap;
+    }
+    .mc-title {
+      font-weight: 700; color: var(--dark);
+      font-size: clamp(12px, 3.2vw, 15px); line-height: 1.3;
+    }
+    .mc-qty {
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(26,20,17,0.07); border-radius: 999px;
+      padding: 3px 10px; flex-shrink: 0;
+    }
+    .qty-btn {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--dark); color: #fff; border: none; cursor: pointer;
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      line-height: 1;
+    }
+    .qty-num { font-weight: 700; font-size: 12px; color: var(--dark); min-width: 14px; text-align: center; }
+
+    /* desc */
+    .mc-desc {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(9px, 2.2vw, 11px);
+      color: rgba(26,20,17,.55); line-height: 1.6;
+      margin-bottom: clamp(10px, 2.5vw, 14px);
+    }
+
+    /* footer */
+    .mc-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .mc-price-wrap { display: flex; flex-direction: column; }
+    .mc-price-label {
+      font-size: clamp(8px, 1.8vw, 10px); color: rgba(26,20,17,.45);
+      font-weight: 500; letter-spacing: .04em;
+    }
+    .mc-price { font-size: clamp(14px, 3.8vw, 17px); font-weight: 800; color: var(--dark); }
+    .mc-buy {
+      flex: 1; max-width: 148px;
+      padding: clamp(9px, 2.2vw, 12px) clamp(12px, 3.5vw, 18px);
+      border-radius: 999px; background: var(--grad); color: #fff;
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: clamp(11px, 2.8vw, 13px); border: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(26,20,17,.25);
+      white-space: nowrap; transition: opacity .2s;
+    }
+    .mc-buy:hover { opacity: .86; }
+
+    /* ══════════════════════════════════════════
+       RIGHT COLUMN
+    ══════════════════════════════════════════ */
+    .right-col { display: flex; flex-direction: column; gap: clamp(10px, 2.5vw, 14px); }
+
+    /* thumb card */
+    .thumb-card {
+      background: rgba(248, 244, 240, 0.94);
+      border-radius: clamp(16px, 4vw, 22px);
+      padding: clamp(10px, 2.5vw, 13px);
+      display: flex; flex-direction: column; align-items: center;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+      position: relative;
+    }
+    .thumb-plus {
+      position: absolute; top: 9px; right: 9px;
+      width: clamp(24px, 5vw, 30px); height: clamp(24px, 5vw, 30px);
+      border-radius: 50%; background: var(--grad); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(26,20,17,.22);
+    }
+    .thumb-plus svg { width: 13px; height: 13px; }
+    .thumb-img {
+      width: 100%; aspect-ratio: 1/1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 4px; margin-bottom: 7px;
+    }
+    .thumb-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .thumb-name {
+      font-weight: 700; font-size: clamp(9px, 2.2vw, 11px);
+      color: var(--dark); text-align: center; margin-bottom: 2px;
+    }
+    .thumb-price {
+      font-weight: 800; font-size: clamp(9px, 2.2vw, 11px);
+      color: var(--dark); text-align: center;
+    }
+
+    /* attr card */
+    .attr-card {
+      background: rgba(248, 244, 240, 0.94);
+      border-radius: clamp(16px, 4vw, 22px);
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+    }
+    /* mini chair image on top of attr card */
+    .attr-img {
+      width: 100%; aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(6px, 2vw, 10px);
+      border-bottom: 1px solid rgba(26,20,17,0.07);
+    }
+    .attr-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .attr-row {
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(8px, 2vw, 11px) clamp(10px, 2.5vw, 14px);
+      font-weight: 600; font-size: clamp(10px, 2.5vw, 12px); color: var(--dark);
+      border-bottom: 1px solid rgba(26,20,17,.07);
+    }
+    .attr-row:last-child { border-bottom: none; }
+
+    /* ══════════════════════════════════════════
+       DESCRIPTION BLOCK
+    ══════════════════════════════════════════ */
+    .desc-block {
+      background: rgba(228, 222, 214, 0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: clamp(20px, 5vw, 28px);
+      padding: clamp(16px, 4vw, 24px) clamp(18px, 4.5vw, 28px);
+      border: 1px solid rgba(255,255,255,0.40);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .desc-block p {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(11px, 2.6vw, 13px);
+      color: var(--dark); line-height: 1.85;
+      letter-spacing: 0.04em; text-align: justify;
+    }
+
+    /* ══════════════════════════════════════════
+       BOTTOM NAV
+    ══════════════════════════════════════════ */
+    .bottom-nav {
+      position: fixed;
+      bottom: clamp(14px, 2.5vw, 24px);
+      left: 50%; transform: translateX(-50%);
+      width: min(calc(100% - clamp(32px,8vw,80px)), 520px);
+      height: clamp(62px, 10vw, 80px);
+      background: var(--grad);
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: space-around;
+      padding: 0 clamp(16px, 3vw, 36px);
+      box-shadow: 0 8px 32px rgba(26,20,17,.35);
+      z-index: 200;
+    }
+    .nav-btn {
+      width: clamp(38px, 5vw, 52px); height: clamp(38px, 5vw, 52px);
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer;
+      border-radius: 50%; transition: background .2s;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,.12); }
+    .nav-btn img {
+      width: clamp(26px, 3.2vw, 38px); height: clamp(26px, 3.2vw, 38px);
+      object-fit: contain; filter: brightness(0) invert(1);
+    }
+    .nav-btn svg { width: clamp(26px, 3.2vw, 38px); height: clamp(26px, 3.2vw, 38px); }
+
+    /* medium+ */
+    @media (min-width: 640px) {
+      .page-wrap { max-width: 620px; }
+      .top-area { grid-template-columns: 1fr 165px; }
+    }
+    @media (min-width: 1024px) {
+      .page-wrap { max-width: 800px; }
+      .top-area { grid-template-columns: 1fr 185px; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ══ TOP AREA ══ -->
+  <div class="top-area">
+
+    <!-- MAIN CARD -->
+    <div class="main-card">
+      <div class="mc-header">
+        <button class="mc-back" aria-label="Back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="mc-cart-btn" aria-label="Cart">
+          <img src="images/cart.png" alt="Cart"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+            <line x1="18" y1="2" x2="22" y2="2"/><line x1="20" y1="0" x2="20" y2="4"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="mc-img">
+        <img src="images/chaire.jpeg" alt="High quality chair" onerror="this.src='images/IMG_4837.JPG'"/>
+      </div>
+
+      <div class="mc-title-row">
+        <span class="mc-title">High quality chair</span>
+        <div class="mc-qty">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span class="qty-num" id="qtyNum">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <p class="mc-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+
+      <div class="mc-footer">
+        <div class="mc-price-wrap">
+          <span class="mc-price-label">Total Price</span>
+          <span class="mc-price">$15.00</span>
+        </div>
+        <button class="mc-buy">Buy it Now</button>
+      </div>
+    </div>
+
+    <!-- RIGHT COL -->
+    <div class="right-col">
+
+      <!-- Thumb card -->
+      <div class="thumb-card">
+        <button class="thumb-plus" aria-label="Add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+        <div class="thumb-img">
+          <img src="images/IMG_4837.JPG (1).jpeg" alt="Accessories" onerror="this.src='images/IMG_4837.JPG'"/>
+        </div>
+        <p class="thumb-name">Accessories</p>
+        <p class="thumb-price">$15.00</p>
+      </div>
+
+      <!-- Attr card -->
+      <div class="attr-card">
+        <div class="attr-img">
+          <img src="images/chaire.jpeg" alt="Chair" onerror="this.src='images/IMG_4837.JPG'"/>
+        </div>
+        <div class="attr-row">Sizes</div>
+        <div class="attr-row">Colour</div>
+        <div class="attr-row">Type</div>
+      </div>
+
+    </div>
+
+  </div><!-- /top-area -->
+
+  <!-- ══ DESCRIPTION ══ -->
+  <div class="desc-block">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav" aria-label="Main navigation">
+
+  <button class="nav-btn" aria-label="Profile">
+    <img src="images/users (2).png" alt="User"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8" r="4.5"/><path d="M3.5 21c0-5 3.8-8.5 8.5-8.5s8.5 3.5 8.5 8.5"/>
+    </svg>
+  </button>
+
+  <button class="nav-btn" aria-label="Home">
+    <img src="images/home-logo.png" alt="Home"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+      <path d="M9 21V12h6v9"/>
+    </svg>
+  </button>
+
+  <button class="nav-btn" aria-label="Cart">
+    <img src="images/cart.png" alt="Cart"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <svg style="display:none" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+    </svg>
+  </button>
+
+</nav>
+
+<script>
+  let qty = 1;
+  function changeQty(d) {
+    qty = Math.max(1, qty + d);
+    document.getElementById('qtyNum').textContent = qty;
+  }
+</script>
+</body>
+</html>

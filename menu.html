@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cousy Style – Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark  : #1A1411;
+      --brown : #755C4C;
+      --tan   : #C4A882;
+      --grad  : linear-gradient(135deg, #1A1411 0%, #755C4C 100%);
+    }
+    html, body { width: 100%; min-height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: url('images/background-for-pages.png') center center / cover no-repeat fixed;
+      background-color: #d4cfc9;
+      min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+      padding: clamp(16px, 4vw, 36px); overflow-x: hidden;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 220px; mix-blend-mode: multiply;
+    }
+    
+    .menu-wrap {
+      position: relative; z-index: 1; width: 100%; max-width: 440px;
+      background: rgba(248, 244, 240, 0.94); border-radius: clamp(20px, 5vw, 32px);
+      padding: clamp(20px, 5vw, 36px); box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      display: flex; flex-direction: column; min-height: 80vh; animation: slideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    
+    @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .menu-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; border-bottom: 2px solid rgba(26,20,17,0.05); padding-bottom: 16px; }
+    
+    .brand-logo { height: clamp(28px, 6vw, 42px); width: auto; object-fit: contain; }
+    
+    .close-btn {
+      width: clamp(36px, 8vw, 44px); height: clamp(36px, 8vw, 44px);
+      border-radius: 50%; border: none; cursor: pointer; background: rgba(26,20,17,0.08);
+      display: flex; align-items: center; justify-content: center; transition: background .2s; text-decoration: none;
+    }
+    .close-btn:hover { background: rgba(26,20,17,0.15); }
+    .close-btn svg { width: clamp(16px, 4vw, 20px); height: auto; }
+
+    /* Categories List */
+    .cat-list { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    
+    .cat-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; background: rgba(255,255,255,0.6); border-radius: 16px;
+      text-decoration: none; color: var(--dark); border: 1px solid rgba(26,20,17,0.05);
+      transition: all 0.2s; position: relative; overflow: hidden;
+    }
+    .cat-item::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--grad); border-radius: 4px 0 0 4px; opacity: 0; transition: opacity 0.2s;
+    }
+    .cat-item:hover { background: #fff; transform: translateX(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .cat-item:hover::before { opacity: 1; }
+    
+    .cat-left { display: flex; align-items: center; gap: 16px; }
+    .cat-icon { font-size: clamp(20px, 5vw, 24px); width: 32px; text-align: center; }
+    .cat-name { font-weight: 800; font-size: clamp(15px, 4vw, 18px); letter-spacing: 0.02em; }
+    .cat-arrow { width: 18px; height: 18px; stroke: var(--dark); opacity: 0.3; transition: opacity 0.2s; }
+    .cat-item:hover .cat-arrow { opacity: 1; stroke: var(--brown); }
+
+    .menu-footer { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+    .sub-links { display: flex; flex-direction: column; gap: 10px; }
+    .sub-link { font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 14px; color: rgba(26,20,17,0.7); text-decoration: none; transition: color 0.2s; }
+    .sub-link:hover { color: var(--brown); }
+    
+    .social-row { display: flex; gap: 12px; margin-top: 10px; }
+    .soc-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--grad); display: flex; align-items: center; justify-content: center; }
+    .soc-icon img { width: 18px; height: 18px; object-fit: contain; filter: brightness(0) invert(1); }
+    .soc-icon svg { width: 18px; height: 18px; fill: #fff; }
+
+    @media (min-width: 640px) { .menu-wrap { max-width: 520px; } }
+    @media (min-width: 1024px) {
+      .menu-wrap { max-width: 600px; padding: 40px; }
+      .cat-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .menu-footer { align-items: center; text-align: center; }
+      .sub-links { flex-direction: row; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="menu-wrap">
+  
+  <div class="menu-header">
+    <img class="brand-logo" src="images/logo-menu.png" alt="Cousy Style">
+    <a href="javascript:history.back()" class="close-btn" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </a>
+  </div>
+
+  <div class="cat-list">
+    <a href="index.html" class="cat-item">
+      <div class="cat-left">
+        <span class="cat-icon">🏠</span>
+        <span class="cat-name">Home</span>
+      </div>
+      <svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </a>
+    
+    <a href="#" class="cat-item">
+      <div class="cat-left">
+        <span class="cat-icon">🛋️</span>
+        <span class="cat-name">Furniture</span>
+      </div>
+      <svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </a>
+
+    <a href="accessories.html" class="cat-item">
+      <div class="cat-left">
+        <span class="cat-icon">🪴</span>
+        <span class="cat-name">Accessories</span>
+      </div>
+      <svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </a>
+
+    <a href="#" class="cat-item">
+      <div class="cat-left">
+        <span class="cat-icon">✨</span>
+        <span class="cat-name">New Arrivals</span>
+      </div>
+      <svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </a>
+
+    <a href="#" class="cat-item">
+      <div class="cat-left">
+        <span class="cat-icon">🔥</span>
+        <span class="cat-name">Special Offers</span>
+      </div>
+      <svg class="cat-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </a>
+  </div>
+
+  <div class="menu-footer">
+    <div class="sub-links">
+      <a href="contact-social.html" class="sub-link">Contact Us</a>
+      <a href="profile.html" class="sub-link">My Account</a>
+      <a href="orders.html" class="sub-link">Order Tracking</a>
+      <a href="#" class="sub-link">About Us</a>
+      <a href="#" class="sub-link">Terms & Conditions</a>
+    </div>
+    
+    <div class="social-row">
+      <a href="#" class="soc-icon"><img src="images/instagram.png" alt="Insta" onerror="this.style.display='none'"></a>
+      <a href="#" class="soc-icon"><img src="images/tiktok.png" alt="TikTok" onerror="this.style.display='none'"></a>
+      <a href="#" class="soc-icon"><img src="images/whatsapp.png" alt="WhatsApp" onerror="this.style.display='none'"></a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

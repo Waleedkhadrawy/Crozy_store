@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cousy Style – Login / Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark  : #1A1411;
+      --brown : #755C4C;
+      --tan   : #C4A882;
+      --grad  : linear-gradient(135deg, #1A1411 0%, #755C4C 100%);
+    }
+    html, body { width: 100%; min-height: 100%; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: url('images/background-for-pages.png') center center / cover no-repeat fixed;
+      background-color: #d4cfc9;
+      min-height: 100vh; display: flex; justify-content: center; align-items: center;
+      padding: clamp(16px, 4vw, 36px);
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 220px; mix-blend-mode: multiply;
+    }
+    .page-wrap {
+      position: relative; z-index: 1; width: 100%; max-width: 440px;
+      background: rgba(248, 244, 240, 0.94); border-radius: clamp(20px, 5vw, 32px);
+      padding: clamp(24px, 5vw, 40px) clamp(20px, 4vw, 32px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .brand-header { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .brand-logo { height: clamp(40px, 8vw, 60px); width: auto; object-fit: contain; }
+    .brand-name { font-weight: 900; font-size: clamp(20px, 5vw, 26px); color: var(--dark); text-transform: uppercase; letter-spacing: 0.1em; text-align: center; }
+
+    .tabs { display: flex; background: rgba(26,20,17,0.08); border-radius: 999px; padding: 4px; position: relative; margin-bottom: 10px; }
+    .tab { flex: 1; padding: 12px 0; text-align: center; font-weight: 700; font-size: 14px; color: var(--dark); cursor: pointer; position: relative; z-index: 2; border-radius: 999px; transition: color 0.3s; }
+    .tab.active { color: #fff; }
+    .tab-bg { position: absolute; top: 4px; bottom: 4px; width: calc(50% - 4px); background: var(--grad); border-radius: 999px; z-index: 1; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    .form-pane { display: none; flex-direction: column; gap: 16px; animation: fadeIn 0.4s ease forwards; }
+    .form-pane.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .input-grp { display: flex; flex-direction: column; gap: 6px; }
+    .input-grp label { font-family: 'Raleway', sans-serif; font-weight: 600; font-size: 13px; color: var(--dark); }
+    .input-grp input {
+      width: 100%; padding: 14px 16px; border-radius: 12px;
+      border: 1px solid rgba(26,20,17,0.15); background: rgba(255,255,255,0.7);
+      font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--dark);
+      outline: none; transition: border 0.3s, background 0.3s;
+    }
+    .input-grp input:focus { border-color: var(--brown); background: #fff; }
+
+    .btn-main {
+      width: 100%; margin-top: 10px;
+      padding: clamp(14px, 3.8vw, 18px); border-radius: 999px;
+      background: var(--grad); color: #fff; text-transform: uppercase; letter-spacing: 0.05em;
+      font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(14px, 3.5vw, 16px);
+      border: none; cursor: pointer; box-shadow: 0 6px 20px rgba(26,20,17,.25); text-align: center;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-main:hover { opacity: .9; transform: translateY(-2px); }
+
+    .switch-link { text-align: center; font-family: 'Raleway', sans-serif; font-size: 13px; font-weight: 600; color: rgba(26,20,17,0.7); margin-top: 10px; }
+    .switch-link span { color: var(--brown); font-weight: 700; cursor: pointer; text-decoration: underline; }
+
+    .back-nav {
+      position: absolute; top: clamp(16px, 4vw, 24px); left: clamp(16px, 4vw, 24px);
+      width: clamp(36px, 8vw, 44px); height: clamp(36px, 8vw, 44px);
+      border-radius: 50%; border: none; cursor: pointer; background: rgba(26,20,17,0.08);
+      display: flex; align-items: center; justify-content: center; transition: background .2s; text-decoration: none;
+    }
+    .back-nav:hover { background: rgba(26,20,17,0.15); }
+    .back-nav svg { width: clamp(16px, 4vw, 20px); height: auto; }
+
+    @media (min-width: 640px) { .page-wrap { max-width: 480px; padding: 40px; } }
+    @media (min-width: 1024px) { .page-wrap { max-width: 520px; padding: 48px; } }
+
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+  <a href="index.html" class="back-nav" aria-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </a>
+
+  <div class="brand-header">
+    <img class="brand-logo" src="images/logo-menu.png" alt="Cousy Style">
+    <div class="brand-name">Cousy Style</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab-bg" id="tabBg" style="left: 4px;"></div>
+    <div class="tab active" onclick="switchTab('login')">Login</div>
+    <div class="tab" onclick="switchTab('register')">Register</div>
+  </div>
+
+  <!-- Login Form -->
+  <div class="form-pane active" id="loginForm">
+    <div class="input-grp">
+      <label>Email or Phone</label>
+      <input type="text" placeholder="example@email.com">
+    </div>
+    <div class="input-grp">
+      <label>Password</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <div style="text-align: right; margin-top: -6px;">
+      <a href="#" style="font-family: 'Raleway', sans-serif; font-size: 12px; color: var(--brown); font-weight: 600; text-decoration: none;">Forgot Password?</a>
+    </div>
+    <button class="btn-main" onclick="window.location.href='index.html'">Sign In</button>
+    <div class="switch-link">Don't have an account? <span onclick="switchTab('register')">Sign Up</span></div>
+  </div>
+
+  <!-- Register Form -->
+  <div class="form-pane" id="registerForm">
+    <div class="input-grp">
+      <label>Full Name</label>
+      <input type="text" placeholder="John Doe">
+    </div>
+    <div class="input-grp">
+      <label>Email</label>
+      <input type="email" placeholder="example@email.com">
+    </div>
+    <div class="input-grp">
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+966 50 000 0000">
+    </div>
+    <div class="input-grp">
+      <label>Password</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <button class="btn-main" onclick="window.location.href='index.html'">Create Account</button>
+    <div class="switch-link">Already have an account? <span onclick="switchTab('login')">Sign In</span></div>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(type) {
+    const tabs = document.querySelectorAll('.tab');
+    const bg = document.getElementById('tabBg');
+    const login = document.getElementById('loginForm');
+    const register = document.getElementById('registerForm');
+
+    tabs.forEach(t => t.classList.remove('active'));
+    
+    if (type === 'login') {
+      tabs[0].classList.add('active');
+      bg.style.left = '4px';
+      login.classList.add('active');
+      register.classList.remove('active');
+    } else {
+      tabs[1].classList.add('active');
+      bg.style.left = 'calc(50%)';
+      register.classList.add('active');
+      login.classList.remove('active');
+    }
+  }
+</script>
+
+</body>
+</html>
