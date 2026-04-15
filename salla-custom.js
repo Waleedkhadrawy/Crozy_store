@@ -29,8 +29,8 @@ function injectHeader(){
     '<div class="ch-strip">'+
       '<div class="ch-brand">'+
         '<a href="/" class="ch-brand-top" style="text-decoration:none">'+
-          '<img class="ch-logo" src="'+GH+'logo.png" alt="Cozy Style" '+
-               'onerror="if(!this.dataset.fallback){this.dataset.fallback=\'1\';this.src=\''+GH+'logo-header.png\';}else{this.style.display=\'none\'}"/>'+
+          '<img class="ch-logo" src="'+GH+'logo-header-new.png" alt="Cozy Style" '+
+               'onerror="if(!this.dataset.fallback){this.dataset.fallback=\'1\';this.src=\''+GH+'logo.png\';}else{this.style.display=\'none\'}"/>'+
         '</a>'+
         '<div class="ch-sub">'+
           '<div class="ch-line"></div>'+
@@ -175,18 +175,14 @@ function initSlider(){
   var cur = 0, n = SLIDES.length;
 
   SLIDES.forEach(function(item, i){
-    var card = document.createElement('div');
+    var card = document.createElement('a');
+    card.href = item.url;
     card.className = 'sl-card' + (i === 0 ? ' active' : '');
-    var a = document.createElement('a');
-    a.href = item.url;
-    a.className = 'sl-label';
-    a.style.textDecoration = 'none';
-    a.textContent = item.label;
-    card.appendChild(a);
-    /* Only go to slide if not active. If active, let the link fire naturally */
-    (function(idx){ card.addEventListener('click', function(e){ 
-      if(cur !== idx) { e.preventDefault(); goTo(idx); }
-    }); })(i);
+    card.style.textDecoration = 'none';
+    var span = document.createElement('span');
+    span.className = 'sl-label';
+    span.textContent = item.label;
+    card.appendChild(span);
     track.appendChild(card);
   });
 
@@ -391,7 +387,6 @@ function buildMenuItems(items){
   return items.map(function(item){
     return '<a href="'+item.url+'" class="cmo-cat-item">'+
       '<div class="cmo-cat-left">'+
-        '<span class="cmo-cat-icon">'+(item.icon||'🏷️')+'</span>'+
         '<span class="cmo-cat-name">'+item.name+'</span>'+
       '</div>'+
       '<svg class="cmo-cat-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1411" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'+
@@ -712,26 +707,20 @@ ready(function(){
   injectHeader();
   injectBottomNav();
   styleProductCards();
-  if(isHomepage()){
-    injectHero();
-    injectSlider();
-    injectAccPill();
-    injectContactSection();
-    fixNativeCategories();
-  } else {
-    injectContactSection();
-  }
-  observe();
-  /* re-run after lazy content */
-  setTimeout(function(){
-    injectHeader();
-    injectBottomNav();
-    fixBackgrounds();
-    styleProductCards();
     if(isHomepage()){
-      injectHero();
-      injectSlider();
-      injectAccPill();
+      injectContactSection();
+      fixNativeCategories();
+    } else {
+      injectContactSection();
+    }
+    observe();
+    /* re-run after lazy content */
+    setTimeout(function(){
+      injectHeader();
+      injectBottomNav();
+      fixBackgrounds();
+      styleProductCards();
+      if(isHomepage()){
       injectContactSection();
       fixNativeCategories();
     }
