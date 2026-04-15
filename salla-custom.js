@@ -681,10 +681,9 @@ function observe(){
     injectBottomNav();
     fixBackgrounds();
     styleProductCards();
-    /* Hero + Slider only on homepage */
+    /* Hero only on homepage */
     if(isHomepage()){
       injectHero();
-      injectSlider();
     }
   });
   ob.observe(document.body, {childList:true, subtree:true});
@@ -703,9 +702,9 @@ ready(function(){
   styleProductCards();
   if(isHomepage()){
     injectHero();
-    injectSlider();
     injectAccPill();
     injectContactSection();
+    fixNativeCategories();
   } else {
     injectContactSection();
   }
@@ -718,11 +717,33 @@ ready(function(){
     styleProductCards();
     if(isHomepage()){
       injectHero();
-      injectSlider();
       injectAccPill();
       injectContactSection();
+      fixNativeCategories();
     }
   }, 2000);
 });
+
+/* ══ FIX NATIVE CATEGORIES LINKS ════════════════════════ */
+function fixNativeCategories(){
+  /* Find category images/titles within the native categories section */
+  var cats = document.querySelectorAll('salla-slider[type="carousel"] .swiper-slide, [class*="categories"] [class*="item"]');
+  cats.forEach(function(cat){
+    if(cat._cozyFixed) return;
+    
+    /* Make the whole card clickable if it isn't an <a> tag */
+    if(cat.tagName !== 'A' && !cat.querySelector('a')){
+      var title = cat.querySelector('[class*="title"], h3');
+      if(title && title.textContent){
+        var name = title.textContent.trim();
+        cat.style.cursor = 'pointer';
+        cat.addEventListener('click', function(){
+          window.location.href = '/category/' + encodeURIComponent(name); // Basic fallback matching
+        });
+        cat._cozyFixed = true;
+      }
+    }
+  });
+}
 
 })();
